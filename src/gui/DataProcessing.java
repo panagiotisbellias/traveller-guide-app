@@ -1,6 +1,5 @@
 package gui;
 
-//import database.OracleDBConnection;
 import exception.WikipediaNoArticleException;
 import io.files.ObjectInputOutputStream;
 import java.awt.event.*;
@@ -173,9 +172,6 @@ public class DataProcessing implements MouseListener{
             GUI.getNewUserLabel().setVisible(true);
         }else
             System.out.println(suggestedCity + ": null");
-        
-        //if(OracleDBConnection.makeJDBCConnection())
-            //OracleDBConnection.addData(cityObjects);
         
         //delete all contents from the arraylists for the next user
         cities.clear();
