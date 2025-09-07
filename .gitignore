@@ -1,0 +1,10 @@
+# Build output
+/build/
+/dist/
+
+# NetBeans private settings
+/nbproject/private/
+
+# OS junk
+*.log
+*.tmp
