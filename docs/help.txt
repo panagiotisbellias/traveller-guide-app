@@ -1,0 +1,5 @@
+1. Choose your kind of traveller
+2. Enter your birth date in format: DD-MM-YYYY
+3. Enter your base city in format: City, first two-three letters of city's country
+4. Enter the cities you are interested for using the same format
+5. Enter the weather you don't want to have at all at your final destination
