@@ -33,7 +33,7 @@ public class ShowHelp implements MouseListener{
         okButton.addActionListener((ActionEvent e1) -> {
             helpDialog.setVisible(false);  
         });
-        ArrayList<String> data = TxtFile.read("help.txt");
+        ArrayList<String> data = TxtFile.read("docs/help.txt");
         JLabel label1 = new JLabel(data.get(0));
         JLabel label2 = new JLabel(data.get(1));
         JLabel label3 = new JLabel(data.get(2));

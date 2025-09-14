@@ -51,3 +51,17 @@ Requirements: JDK and Ant installed.
    ant clean compile jar
    java -cp "dist/Traveller_Guide_App.jar:libs/*" traveller.guide.TravellerGuide
    ```
+
+---
+
+## 📸 Application Screenshots
+
+Here are some screenshots of the Traveller Guide App in action:
+
+| Initial View                                           | Initial View (Filled)                                                | Large View (Filled)                                              |
+|--------------------------------------------------------|----------------------------------------------------------------------|------------------------------------------------------------------|
+| ![Initial View](docs/screenshots/app-initial-view.png) | ![Initial View Filled](docs/screenshots/app-initial-view-filled.png) | ![Large View Filled](docs/screenshots/app-large-view-filled.png) |
+
+| Help Window                                          | Error Message                                           | Error Modal Popup                                                |
+|------------------------------------------------------|---------------------------------------------------------|------------------------------------------------------------------|
+| ![Help Window](docs/screenshots/app-help-window.png) | ![Error Message](docs/screenshots/app-error-mesage.png) | ![Error Modal Popup](docs/screenshots/app-error-modal-popup.png) |
