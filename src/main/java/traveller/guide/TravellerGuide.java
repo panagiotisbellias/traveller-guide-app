@@ -3,10 +3,10 @@ package traveller.guide;
 import gui.GUI;
 import java.io.IOException;
 
-/** The Construction of a Traveller Guide App that suggests users cities to visit based on recommandation algorithms.
-* @since 14-07-2020
-* @version 2.5
-* @author it21871 Panagiotis Bellias, it21846 Efstratios Kouzeleas, John Violos */
+/** The Construction of a Traveller Guide App that suggests users cities to visit based on recommendation algorithms.
+* @since 14-09-2025
+* @version 2.6
+* @author Panagiotis Bellias, Efstratios Kouzeleas, John Violos */
 public class TravellerGuide {
 	
     //==========================================================main()==========================================================
