@@ -3,53 +3,28 @@ Service that produces city recommandations based on the preferences and criteria
 
 ## Build and Run Instructions
 
-This project is a Java desktop application. It was originally created with **NetBeans**, but you can also build and run it with **IntelliJ IDEA** or directly from the command line.
-
----
-
-### ✅ NetBeans
-
-1. Open NetBeans.
-2. Go to **File → Open Project…** and select the `traveller-guide-app` folder.
-3. Right-click the project in the Projects view and choose **Run**.
-   - NetBeans uses the included `nbproject` and `build.xml`.
+This project is a Java desktop application. It can be built and run with **Maven**, and you can still use **IntelliJ IDEA**.
 
 ---
 
 ### 💡 IntelliJ IDEA
+
 1. Open IntelliJ IDEA and choose **Open Project**, selecting the `traveller-guide-app` folder.
 2. Mark `src/main/java` as **Sources Root** if not already marked (Right-click → `Mark Directory as → Sources Root`).
-3. Add the `libs/` directory to the classpath:
-   - `File → Project Structure → Libraries → + → Java → select all jars in libs/`.
-4. Create a Run Configuration with `traveller.guide.TravellerGuide` as **Main class**
+3. Maven dependencies will be automatically detected.
+4. Create a Run Configuration with `com.bellias.travellerguide.TravellerGuide` as **Main class** (replace with your actual main class if different).
 5. Run the application.
 
 ---
 
-### 💻 Command Line (Windows)
+### 💻 Command Line (Windows / Linux / WSL)
 Requirements: JDK installed and `JAVA_HOME` set.
 
-1. Open **Command Prompt** in the project root.
-2. Run:
-   ```bat
-   ant clean compile jar
-   java -cp dist/Traveller_Guide_App.jar;libs/* traveller.guide.TravellerGuide
-   ```
-
----
-
-### 💻 Command Line (Linux / WSL / Ubuntu)
-Requirements: JDK and Ant installed.
-
-1. Install Ant if needed:
+1. Open a terminal in the project root.
+2. Build the project with Maven:
    ```bash
-   sudo apt update
-   sudo apt install ant
-   ```
-2. From the project root, run:
-   ```bash
-   ant clean compile jar
-   java -cp "dist/Traveller_Guide_App.jar:libs/*" traveller.guide.TravellerGuide
+   mvn clean package
+   mvn exec:java -Dexec.mainClass="com.bellias.travellerguide.TravellerGuide"
    ```
 
 ---
