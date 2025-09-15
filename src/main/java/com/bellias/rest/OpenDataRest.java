@@ -6,13 +6,13 @@ import com.bellias.opendata.wikipedia.MediaWiki;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.UriBuilder;
+
 import java.io.IOException;
 
 /** The Construction of a class that handles the OpenWeatherMap API and the MediaWiki API.
@@ -31,19 +31,21 @@ public class OpenDataRest {
      * @throws com.fasterxml.jackson.databind.JsonMappingException
      */
     //==========================================================================================================================
-    public OpenWeatherMap RetrieveOpenWeatherMap(String city, String country, final String appid) throws
-            JsonParseException, JsonMappingException, IOException, IllegalArgumentException {
-        
-	ClientConfig config = new DefaultClientConfig();
-	Client client = Client.create(config);
-	WebResource service = client.resource(UriBuilder.fromUri("http://api.openweathermap.org/data/2.5/weather?q="+
-                city+","+country+"&APPID="+appid+"").build());
-	ObjectMapper mapper = new ObjectMapper(); 
-	String json= service.accept(MediaType.APPLICATION_JSON).get(String.class);
-	OpenWeatherMap weather_obj = mapper.readValue(json,OpenWeatherMap.class);
-        return weather_obj;
-        
-    }
+	public OpenWeatherMap RetrieveOpenWeatherMap(String city, String country, final String appid)
+			throws JsonParseException, JsonMappingException, IOException {
+
+		Client client = ClientBuilder.newClient();
+		WebTarget service = client.target(
+				UriBuilder.fromUri("http://api.openweathermap.org/data/2.5/weather")
+						.queryParam("q", city + "," + country)
+						.queryParam("APPID", appid)
+						.build()
+		);
+
+		String json = service.request(MediaType.APPLICATION_JSON).get(String.class);
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.readValue(json, OpenWeatherMap.class);
+	}
     //==============================================End of RetrieveOpenWeatherMap()=============================================
 	
     //====================================================RetrieveWikipedia()===================================================
@@ -54,20 +56,32 @@ public class OpenDataRest {
      * @throws com.bellias.exception.WikipediaNoArticleException
      */
     //==========================================================================================================================
-    public String RetrieveWikipedia(String city) throws  IOException, WikipediaNoArticleException {
-	String article="";
-	ClientConfig config = new DefaultClientConfig();
-	Client client = Client.create(config);
-	WebResource service = client.resource(UriBuilder.fromUri("https://en.wikipedia.org/w/api.php?action=query&"
-                + "prop=extracts&titles="+city+"&format=json&formatversion=2").build());      
-	ObjectMapper mapper = new ObjectMapper(); 
-	String json= service.accept(MediaType.APPLICATION_JSON).get(String.class); 
-	if (json.contains("pageid")) {
-		MediaWiki mediaWiki_obj =  mapper.readValue(json, MediaWiki.class);
-		article= mediaWiki_obj.getQuery().getPages().get(0).getExtract();		
-	} else throw new WikipediaNoArticleException(city);
-	return article;	 
-    }
+	public String RetrieveWikipedia(String city) throws IOException, WikipediaNoArticleException {
+
+		Client client = ClientBuilder.newClient();
+		WebTarget service = client.target(
+				UriBuilder.fromUri("https://en.wikipedia.org/w/api.php")
+						.queryParam("action", "query")
+						.queryParam("prop", "extracts")
+						.queryParam("titles", city)
+						.queryParam("format", "json")
+						.queryParam("formatversion", 2)
+						.build()
+		);
+
+		String json = service.request(MediaType.APPLICATION_JSON).get(String.class);
+		ObjectMapper mapper = new ObjectMapper();
+		String article = "";
+
+		if (json.contains("pageid")) {
+			MediaWiki mediaWiki_obj = mapper.readValue(json, MediaWiki.class);
+			article = mediaWiki_obj.getQuery().getPages().get(0).getExtract();
+		} else {
+			throw new WikipediaNoArticleException(city);
+		}
+
+		return article;
+	}
     //=================================================End of RetrieveWikipedia()================================================
 
     //======================================================countTotalWords()====================================================
