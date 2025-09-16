@@ -3,14 +3,10 @@ package com.bellias.iofiles;
 import com.bellias.travellerguide.Traveller;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
 /** The Construction of a class that handles the ObjectInputStream and ObjectOutputStream classes so we can save the travellers into a file.
 * @since 31-05-2020
@@ -38,38 +34,5 @@ public class ObjectInputOutputStream {
         
     }
     //====================================================End of storeObjects()================================================
-    
-    //=====================================================retrieveObjects()===================================================
-    /** The method handles ObjectInputStream class, so we can retrieve objects from file.
-     * @param fileName the file that will be read to retrieve ArrayList of Traveller objects.
-     * @param array the ArrayList of Traveller objects that will get filled from file.
-     * @return the ArrayList of Traveller objects retrieved from the file.
-     * @throws java.io.FileNotFoundException 
-     * @throws java.io.IOException
-     * @throws java.lang.ClassNotFoundException
-     */
-    //==========================================================================================================================
-    public static ArrayList<Traveller> retrieveObjects(String fileName, ArrayList<Traveller> array) throws 
-            FileNotFoundException, IOException, ClassNotFoundException {
-             
-        try{
-            File file = new File(fileName);
-            FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            
-            array = (ArrayList<Traveller>) ois.readObject();
-            
-            ois.close();
-                       
-        }catch(NoSuchElementException | IOException | ClassNotFoundException ex){
-            array = new ArrayList<>();
-        }
-        
-        Traveller.setTravellersNumber(array.size());
-        
-        return array;
-        
-    }
-    //==================================================End of retrieveObjects()===============================================
-    
+
 }//==================================================End of Class ObjectInputOutputStream ==============================================

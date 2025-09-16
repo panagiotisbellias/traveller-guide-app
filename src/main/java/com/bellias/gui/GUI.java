@@ -1,6 +1,6 @@
 package com.bellias.gui;
 
-import com.bellias.iofiles.ObjectInputOutputStream;
+import com.bellias.storage.DataStoreFactory;
 import com.bellias.travellerguide.City;
 import com.bellias.travellerguide.Traveller;
 
@@ -48,9 +48,8 @@ public class GUI {
      */
     //==========================================================================================================================
     public GUI() throws IOException, ClassNotFoundException{
-        
-        fileName = "travellers.txt"; //Load travellers from file
-        travellers = ObjectInputOutputStream.retrieveObjects(fileName, travellers);
+
+        travellers = DataStoreFactory.create().saveTravellers(null, travellers);
         
         if(Traveller.getTravellersNumber() >= 6) manyTravellers = true;
         
