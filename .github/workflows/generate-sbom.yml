@@ -1,0 +1,33 @@
+name: Generate SBOM
+on:
+  push:
+    branches:
+      - main
+      - development
+      - task/generate-sbom-using-syft-and-commit-6cp55hFQHh55p6pc
+  workflow_dispatch:
+
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Syft
+        run: curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Create SBOM directory
+        run: mkdir -p sbom
+
+      - name: Generate SBOMs
+        run: |
+          syft packages dir:. -o cyclonedx-json > sbom/sbom.json
+          syft packages dir:. -o spdx-json > sbom/sbom.spdx.json
+
+      - name: Commit SBOMs
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add sbom/
+          git commit -m "chore: update SBOMs" || echo "No changes to commit"
+          git push

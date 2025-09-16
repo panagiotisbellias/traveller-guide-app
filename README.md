@@ -40,3 +40,51 @@ Here are some screenshots of the Traveller Guide App in action:
 | Help Window                                          | Error Message                                           | Error Modal Popup                                                |
 |------------------------------------------------------|---------------------------------------------------------|------------------------------------------------------------------|
 | ![Help Window](docs/screenshots/app-help-window.png) | ![Error Message](docs/screenshots/app-error-mesage.png) | ![Error Modal Popup](docs/screenshots/app-error-modal-popup.png) |
+
+## Generating SBOMs (Software Bill of Materials)
+
+We use [Syft](https://github.com/anchore/syft) to generate SBOMs for the project dependencies.
+
+### **Manual Generation (Local)**
+
+1. Install Syft:
+```bash
+# Linux / macOS
+curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+# Windows (Scoop)
+scoop install syft
+```
+
+2. Navigate to project root:
+```bash
+cd /path/to/project
+```
+
+3. Run the SBOM generation script:
+```bash
+./generate-sbom.sh
+```
+
+This will create/update the sbom/ directory with:
+- sbom.json (CycloneDX format)
+- sbom.spdx.json (SPDX format)
+and commit the changes automatically.
+
+4. Inspect the SBOM (optional):
+```bash
+cat sbom/sbom.json | jq '.'
+```
+
+---
+
+### Automated GitHub Actions Workflow
+
+The project has a workflow Generate SBOM which:
+- Runs on pushes to main, development and related side task branch or can be triggered manually.
+- Generates both CycloneDX and SPDX SBOMs.
+- Commits the SBOMs back to the repository automatically.
+
+You can trigger it from the Actions tab in GitHub or via push to main, development or related side task branch.
+
+---
