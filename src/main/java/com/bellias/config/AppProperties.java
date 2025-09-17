@@ -19,18 +19,10 @@ public class AppProperties {
         }
     }
 
-    private static String get(String key, String def) {
+    public static String get(String key, String def) {
         // Priority: ENV > application.properties > default
         return System.getenv().getOrDefault(key.toUpperCase().replace('.', '_'),
                 props.getProperty(key, def));
-    }
-
-    public static String getBackend() {
-        return get("storage.backend", "file");
-    }
-
-    public static String getBasePath() {
-        return get("storage.basePath", "data");
     }
 
     public static String getTravellersFile() {

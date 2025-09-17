@@ -33,4 +33,5 @@ Thumbs.db
 temp/
 tmp/
 
-data/
+data/popular_cities.json
+data/travellers.json
