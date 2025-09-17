@@ -51,9 +51,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Example Snyk scan (if configured)
-      - name: Run security scan
-        run: echo "Security scan placeholder; add your scan tool here"
+      - name: Set up Node.js (Snyk requires Node)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Snyk
+        run: npm install -g snyk
+
+      - name: Authenticate Snyk
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk auth $SNYK_TOKEN
+
+      - name: Run Snyk test
+        run: snyk test --all-projects
 
   verify-signed-commits:
     runs-on: ubuntu-latest
