@@ -1,9 +1,10 @@
 package com.bellias.gui;
 
+import com.bellias.config.AppProperties;
 import com.bellias.exception.WikipediaNoArticleException;
-import com.bellias.iofiles.ObjectInputOutputStream;
 import com.bellias.opendata.weather.OpenWeatherMap;
 import com.bellias.rest.WeatherThread;
+import com.bellias.storage.DataStoreFactory;
 import com.bellias.travellerguide.Business;
 import com.bellias.travellerguide.City;
 import com.bellias.travellerguide.CollaborativeFiltering;
@@ -26,7 +27,6 @@ import java.util.Date;
 public class DataProcessing implements MouseListener{
         
     final String APP_ID;
-    String fileName;
     ArrayList<Traveller> travellers;
     ArrayList<String> cities;
     ArrayList<City> cityObjects;
@@ -38,7 +38,6 @@ public class DataProcessing implements MouseListener{
     //=======================================================DataProcessing()=====================================================
     /** The constructor initializes all the necessary fields for the execution of the program with specific values.
      * @param APP_ID our OpenWeatherMap API id.
-     * @param fileName the file that the ArrayList of Traveller objects will be saved and retrieved.
      * @param travellers the ArrayList of Traveller objects where users are kept.
      * @param cities the cities that traveller wants in String format (just name and country).
      * @param cityObjects the cities that traveller wants in Objects.
@@ -47,11 +46,10 @@ public class DataProcessing implements MouseListener{
      * collaborative filtering will be used. If false, the content-based filtering will be used.
      */
     //==========================================================================================================================
-    public DataProcessing(String APP_ID, String fileName, ArrayList<Traveller> travellers, ArrayList<String> cities, 
+    public DataProcessing(String APP_ID, ArrayList<Traveller> travellers, ArrayList<String> cities,
             ArrayList<City> cityObjects, int id, boolean manyTravellers){
         
         this.APP_ID = APP_ID;
-        this.fileName = fileName;
         this.travellers = travellers;
         this.cities = cities;
         this.cityObjects = cityObjects;
@@ -89,11 +87,11 @@ public class DataProcessing implements MouseListener{
         checkFlags.add(checkTravellerCriterias(kind, criteria, criteriaSuggestionsOfCustomer));
         
         //check condition
-        if(checkFlags.contains(false)){
+//        if(checkFlags.contains(false)){
             GUI.getErrorLabel().setText(GUI.getErrorInputMessage());
             GUI.getErrorLabel().setVisible(true);
-            return;
-        }
+//            return;
+//        }
         
         String bName = bCity[0];
         String bCountry = bCity[1];
@@ -186,13 +184,9 @@ public class DataProcessing implements MouseListener{
         cityObjects.clear();
         
         GUI.getNewUserLabel().setVisible(true); //new user
-        
-        try {
-            ObjectInputOutputStream.storeObjects(fileName, travellers); //Save travellers to file
-        } catch (IOException ex) {
-            System.out.println(ex);
-        }
-        
+
+        DataStoreFactory.create().saveTravellers(AppProperties.getTravellersFile(), travellers);
+
         GUI.getNewUserLabel().setVisible(true);
         GUI.getYes().setVisible(true);
         GUI.getNo().setVisible(true);
@@ -330,6 +324,7 @@ public class DataProcessing implements MouseListener{
             }
             //See if we have this city in system now...
             if(cityObjects.contains(cityObject)) {
+                System.out.println(cityObjects.toArray().toString());
                 GUI.setErrorInputMessage("The city is already given to the system");
                 return false;
             }

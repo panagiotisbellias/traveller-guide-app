@@ -1,5 +1,20 @@
 # traveller-guide-app
-Service that produces city recommandations based on the preferences and criterias of a traveller and uses open data. Developed in the context of semester assignment for "Object-oriented Programming II' lesson and studies program of Department of Informatics and Telematics (DIT) at Harokopio University of Athens, Greece (HUA)
+A Java application that provides city recommendations based on traveller preferences.  
+All file paths and backend configurations are now **configurable via `application.properties`**.
+
+## Configuration
+
+Edit `src/main/resources/application.properties`:
+
+```properties
+# application.properties
+storage.backend=file
+# base folder (for multi-file mode)
+storage.basePath=.
+storage.travellersFile=data/travellers.json
+storage.popularCitiesFile=data/popular_cities.json
+storage.helpFile=docs/help.txt
+```
 
 ## Build and Run Instructions
 
@@ -88,3 +103,8 @@ The project has a workflow Generate SBOM which:
 You can trigger it from the Actions tab in GitHub or via push to main, development or related side task branch.
 
 ---
+
+## Notes
+- All file paths are relative to the project root by default.
+- To override, change values in application.properties.
+- Supports both file and in-memory backends for testing.

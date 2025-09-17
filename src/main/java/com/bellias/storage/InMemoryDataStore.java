@@ -21,9 +21,8 @@ public class InMemoryDataStore implements DataStore {
     public void delete(String key) { map.remove(key); }
 
     @Override
-    public ArrayList<Traveller> saveTravellers(String key, ArrayList<Traveller> travellers) {
+    public void saveTravellers(String key, ArrayList<Traveller> travellers) {
         travellersMap.put(key, travellers);
-        return travellers;
     }
 
     @Override

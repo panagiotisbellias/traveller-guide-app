@@ -1,6 +1,8 @@
 package com.bellias.gui;
 
-import com.bellias.iofiles.TxtFile;
+import com.bellias.config.AppProperties;
+import com.bellias.storage.DataStoreFactory;
+import com.bellias.storage.StorageUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,24 +38,65 @@ public class ShowHelp implements MouseListener{
         okButton.addActionListener((ActionEvent e1) -> {
             helpDialog.setVisible(false);  
         });
-        ArrayList<String> data = TxtFile.read("docs/help.txt");
-        JLabel label1 = new JLabel(data.get(0));
-        JLabel label2 = new JLabel(data.get(1));
-        JLabel label3 = new JLabel(data.get(2));
-        JLabel label4 = new JLabel(data.get(3));
-        JLabel label5 = new JLabel(data.get(4));
-        
+        ArrayList<String> data = new StorageUtil(DataStoreFactory.create()).read(AppProperties.getHelpFile());
+
+        boolean noCheck = false;
+        JLabel label1;
+        if (!data.isEmpty()) {
+            label1 = new JLabel(data.get(0));
+        } else {
+            label1 = new JLabel("No help data available."); // fallback text
+            noCheck = true;
+        }
         label1.setBounds(10, 10, 200, 200);
-        label2.setBounds(10, 20, 200, 200);
-        label3.setBounds(10, 30, 200, 200);
-        label4.setBounds(10, 40, 200, 200);
-        label5.setBounds(10, 50, 200, 200);
-        
         helpDialog.add(label1);
-        helpDialog.add(label2);
-        helpDialog.add(label3);
-        helpDialog.add(label4);
-        helpDialog.add(label5);
+
+        JLabel label2;
+        if (!noCheck) {
+            if (!data.isEmpty()) {
+                label2 = new JLabel(data.get(1));
+            } else {
+                label2 = new JLabel("No help data available."); // fallback text
+                noCheck = true;
+            }
+            label2.setBounds(10, 20, 200, 200);
+            helpDialog.add(label2);
+        }
+
+        JLabel label3;
+        if (!noCheck) {
+            if (!data.isEmpty()) {
+                label3 = new JLabel(data.get(2));
+            } else {
+                label3 = new JLabel("No help data available."); // fallback text
+                noCheck = true;
+            }
+            label3.setBounds(10, 30, 200, 200);
+            helpDialog.add(label3);
+        }
+
+        JLabel label4;
+        if (!noCheck) {
+            if (!data.isEmpty()) {
+                label4 = new JLabel(data.get(3));
+            } else {
+                label4 = new JLabel("No help data available."); // fallback text
+                noCheck = true;
+            }
+            label4.setBounds(10, 40, 200, 200);
+            helpDialog.add(label4);
+        }
+
+        JLabel label5;
+        if (!noCheck) {
+            if (!data.isEmpty()) {
+                label5 = new JLabel(data.get(4));
+            } else {
+                label5 = new JLabel("No help data available."); // fallback text
+            }
+            label5.setBounds(10, 50, 200, 200);
+            helpDialog.add(label5);
+        }
         
         helpDialog.add(okButton);
         helpDialog.setSize(500,200);    

@@ -1,17 +1,18 @@
 package com.bellias.gui;
 
-import com.bellias.iofiles.TxtFile;
+import com.bellias.config.AppProperties;
+import com.bellias.storage.DataStoreFactory;
+import com.bellias.storage.StorageUtil;
 import com.bellias.travellerguide.PopularCity;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  *
- * @author it21871
+ * @author Panagiotis Bellias
  */
 /* The construction of a class that finds and shows to the user the most popular city according to event. */
 public class MostPopularCities implements MouseListener {
@@ -101,17 +102,13 @@ public class MostPopularCities implements MouseListener {
     
     /* Save cities to the file */
     private static void popularCitiesToFile(ArrayList<PopularCity> popularCities){
-        
-        String fileName = "popular_cities.txt";
-        
-        Iterator<PopularCity> pc = popularCities.iterator();
-        while(pc.hasNext()){
-            PopularCity popularCity = pc.next();
-            String content = popularCity.getName() + ",\t" + popularCity.getCountry() + "\t\t" +
-                    popularCity.getPopularity();
-            TxtFile.write(fileName, content);
+
+        StorageUtil storage = new StorageUtil(DataStoreFactory.create());
+        for (PopularCity city : popularCities) {
+            storage.write(AppProperties.getPopularCitiesFile(),
+                    city.getName() + ",\t" + city.getCountry() + "\t\t" + city.getPopularity());
         }
-        
+
     }
     
     /* Find the city with the most popularity */

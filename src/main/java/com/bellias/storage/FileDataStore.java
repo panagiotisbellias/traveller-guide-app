@@ -20,76 +20,72 @@ public class FileDataStore implements DataStore {
         this.singleFileMode = !Files.isDirectory(basePath) && basePath.toString().endsWith(".txt");
     }
 
+    /** Resolve the actual path for a given key */
+    private Path resolvePath(String key) {
+        if (singleFileMode) return basePath;
+
+        Path keyPath = Path.of(key);
+
+        // If key is absolute, return as-is
+        if (keyPath.isAbsolute()) return keyPath;
+
+        // If key is relative, prepend basePath
+        return basePath.resolve(keyPath);
+    }
+
     @Override
     public void save(String key, String value) {
         try {
-            if (singleFileMode) {
-                Files.createDirectories(basePath.getParent() != null ? basePath.getParent() : Path.of("."));
-                Files.writeString(basePath, value);
-            } else {
-                Files.createDirectories(basePath);
-                Files.writeString(basePath.resolve(key + ".txt"), value);
-            }
+            Path path = resolvePath(key);
+            if (path.getParent() != null) Files.createDirectories(path.getParent());
+            Files.writeString(path, value);
         } catch (IOException e) {
-            throw new DataStoreException("Failed to save key '" + key + "' to file store", e);
+            throw new DataStoreException("Failed to save key '" + key + "'", e);
         }
     }
 
     @Override
     public String load(String key) {
         try {
-            if (singleFileMode) {
-                return Files.readString(basePath);
-            } else {
-                return Files.readString(basePath.resolve(key + ".txt"));
-            }
+            Path path = resolvePath(key);
+            return Files.exists(path) ? Files.readString(path) : "";
         } catch (IOException e) {
-            throw new DataStoreException("Failed to load key '" + key + "' from file store", e);
+            throw new DataStoreException("Failed to load key '" + key + "'", e);
         }
     }
 
     @Override
     public void delete(String key) {
         try {
-            if (singleFileMode) {
-                Files.deleteIfExists(basePath);
-            } else {
-                Files.deleteIfExists(basePath.resolve(key + ".txt"));
-            }
+            Path path = resolvePath(key);
+            Files.deleteIfExists(path);
         } catch (IOException e) {
-            throw new DataStoreException("Failed to delete key '" + key + "' from file store", e);
+            throw new DataStoreException("Failed to delete key '" + key + "'", e);
         }
     }
 
     @Override
-    public ArrayList<Traveller> saveTravellers(String key, ArrayList<Traveller> travellers) {
+    public void saveTravellers(String key, ArrayList<Traveller> travellers) {
         try {
             String json = mapper.writeValueAsString(travellers);
-            if (singleFileMode) {
-                Files.createDirectories(basePath.getParent() != null ? basePath.getParent() : Path.of("."));
-                Files.writeString(basePath, json);
-            } else {
-                // TODO In multi-file mode, you could save per key or just one file per list
-            }
-            Traveller.setTravellersNumber(travellers.size());
-            return travellers;
+            Path path = resolvePath(key != null ? key : "travellers");
+            Files.createDirectories(path.getParent());
+            Files.writeString(path, json);
         } catch (IOException e) {
-            System.err.println("Failed to save travellers: " + e.getMessage());
-            return new ArrayList<>();
+            throw new DataStoreException("Failed to save travellers", e);
         }
     }
 
     @Override
     public ArrayList<Traveller> loadTravellers(String key) {
         try {
-            String json;
-            if (singleFileMode) {
-                json = Files.readString(basePath);
-            } else {
-                // handle multi-file mode if needed
+            Path path = resolvePath(key != null ? key : "travellers");
+            if (!Files.exists(path)) {
                 return new ArrayList<>();
             }
-            return mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(ArrayList.class, Traveller.class));
+            String json = Files.readString(path);
+            return mapper.readValue(json,
+                    mapper.getTypeFactory().constructCollectionType(ArrayList.class, Traveller.class));
         } catch (IOException e) {
             throw new DataStoreException("Failed to load travellers", e);
         }

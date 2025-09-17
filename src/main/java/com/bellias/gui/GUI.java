@@ -1,5 +1,6 @@
 package com.bellias.gui;
 
+import com.bellias.config.AppProperties;
 import com.bellias.storage.DataStoreFactory;
 import com.bellias.travellerguide.City;
 import com.bellias.travellerguide.Traveller;
@@ -36,7 +37,6 @@ public class GUI {
     static ArrayList<String> cities = new ArrayList<>();        static ArrayList<City> cityObjects = new ArrayList<>();
     
     static final String APP_ID = "2a24f0970630ea181d5daf393bf4615b"; //OpenWeatherMap API id
-    static String fileName;                                          //File name
     static ArrayList<Traveller> travellers = new ArrayList<>();      //Keep traveller objects in an ArrayList
     static int id;                                                   //Traveller id
     static boolean manyTravellers = false;                           //Choose Filtering-condition
@@ -49,8 +49,12 @@ public class GUI {
     //==========================================================================================================================
     public GUI() throws IOException, ClassNotFoundException{
 
-        travellers = DataStoreFactory.create().saveTravellers(null, travellers);
-        
+        travellers = DataStoreFactory.create().loadTravellers(AppProperties.getTravellersFile());
+        System.out.println(travellers.size());
+        if (!travellers.isEmpty()) {
+            Traveller.setTravellersNumber(travellers.size());
+        }
+
         if(Traveller.getTravellersNumber() >= 6) manyTravellers = true;
         
         //Adjust traveller's id
@@ -193,7 +197,7 @@ public class GUI {
             GUI.setKind(3);
         });
         
-        tb1.addMouseListener(new DataProcessing(APP_ID, fileName, travellers, cities, cityObjects, id, manyTravellers));
+        tb1.addMouseListener(new DataProcessing(APP_ID, travellers, cities, cityObjects, id, manyTravellers));
         tb2.addMouseListener(new ClearAreas());
         tb3.addMouseListener(new ShowHelp());
         yes.addMouseListener(new NewUserFrame());
