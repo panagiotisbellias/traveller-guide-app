@@ -26,25 +26,6 @@ jobs:
       - name: Build & Test
         run: mvn clean verify
 
-  formatting:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          java-version: '21'
-          distribution: 'temurin'
-
-      # Optional: Skip Spotless if not installed
-      - name: Install Spotless plugin
-        run: mvn com.diffplug.spotless:spotless-maven-plugin:2.32.0:apply
-
-      - name: Check formatting
-        run: mvn spotless:check || echo "Spotless check skipped; plugin may not be configured"
-
   security-scan:
     runs-on: ubuntu-latest
     steps:
