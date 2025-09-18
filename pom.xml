@@ -14,7 +14,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.18.0</version>
+            <version>99.99</version> <!-- invalid on purpose -->
         </dependency>
 
         <!-- Apache HttpClient5 5.5 -->
