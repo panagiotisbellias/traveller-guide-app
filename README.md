@@ -119,4 +119,3 @@ You can trigger these from the **Actions** tab in GitHub or via pushes/PRs.
 - All file paths are relative to the project root by default.
 - To override, change values in application.properties.
 - Supports both file and in-memory backends for testing.
-
