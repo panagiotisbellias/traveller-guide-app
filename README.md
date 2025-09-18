@@ -1,6 +1,28 @@
 # traveller-guide-app
+[![GitHub release](https://img.shields.io/github/v/release/panagiotisbellias/traveller-guide-app)](https://github.com/panagiotisbellias/traveller-guide-app/releases)
+
 A Java application that provides city recommendations based on traveller preferences.  
 All file paths and backend configurations are now **configurable via `application.properties`**.
+
+---
+
+## Changelog
+
+### v2.7.0 – Modernization (Build & Dependencies)
+- Migrated build system from Ant to Maven
+- Updated dependencies to latest stable versions
+- Decoupled DB configuration from code (PostgreSQL ready)
+- Added GitHub Actions CI/CD with SBOM & security scan
+- Updated README.md with configuration and usage instructions
+
+### v2.8.0 – Next Release
+- Extract recommendation logic from Swing UI
+- Add JUnit 5 test suite for core recommendation logic.
+- Add Dockerfile (Java runtime + packaged JAR) for reproducible builds.
+- Setup GitHub Actions CI for build & tests.
+- Introduce code style checks (Checkstyle/Spotless).
+
+---
 
 ## Configuration
 
