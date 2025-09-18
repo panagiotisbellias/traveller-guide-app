@@ -4,7 +4,7 @@ on:
     branches:
       - main
       - development
-      - task/generate-sbom-using-syft-and-commit-6cp55hFQHh55p6pc
+      - task/generate-sbom-using-syft-and-commit
   workflow_dispatch:
 
 jobs:
@@ -28,8 +28,8 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
-          git fetch origin task/generate-sbom-using-syft-and-commit-6cp55hFQHh55p6pc || echo "No existing task/generate-sbom-using-syft-and-commit-6cp55hFQHh55p6pc branch yet"
-          git checkout -B task/generate-sbom-using-syft-and-commit-6cp55hFQHh55p6pc
+          git fetch origin task/generate-sbom-using-syft-and-commit || echo "No existing task/generate-sbom-using-syft-and-commit branch yet"
+          git checkout -B task/generate-sbom-using-syft-and-commit
 
           # Only commit if there are changes
           if git diff --quiet sbom/; then
@@ -39,14 +39,14 @@ jobs:
 
           git add sbom/
           git commit -m "chore: update SBOMs" || echo "No changes to commit"
-          git push --force-with-lease origin task/generate-sbom-using-syft-and-commit-6cp55hFQHh55p6pc
+          git push --force-with-lease origin task/generate-sbom-using-syft-and-commit
 
       - name: Create or update PR
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "chore: update SBOMs"
-          branch: task/generate-sbom-using-syft-and-commit-6cp55hFQHh55p6pc
+          branch: task/generate-sbom-using-syft-and-commit
           base: development
           title: "Update SBOMs"
           body: |
