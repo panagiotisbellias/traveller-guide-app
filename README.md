@@ -93,14 +93,25 @@ cat sbom/sbom.json | jq '.'
 
 ---
 
-### Automated GitHub Actions Workflow
+### Automated GitHub Actions Workflows
 
-The project has a workflow Generate SBOM which:
-- Runs on pushes to main, development and related side task branch or can be triggered manually.
+We use GitHub Actions for automation. These are the key workflows:
+
+#### ✅ Build and Test
+- Runs Maven build and tests on every push and pull request.
+
+#### 🔐 Security Scan (Snyk)
+- Requires you to set the repository secret `SNYK_TOKEN`.
+- Scans dependencies for vulnerabilities with `snyk test --all-projects`.
+- By default fails only for **High** or **Critical** issues.
+- Results are uploaded to the GitHub Security tab (via SARIF).
+
+#### 🧾 Generate SBOM
+- Runs on pushes to `main`, `development`, and related task branches or can be triggered manually.
 - Generates both CycloneDX and SPDX SBOMs.
 - Commits the SBOMs back to the repository automatically.
 
-You can trigger it from the Actions tab in GitHub or via push to main, development or related side task branch.
+You can trigger these from the **Actions** tab in GitHub or via pushes/PRs.
 
 ---
 
