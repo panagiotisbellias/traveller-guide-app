@@ -1,4 +1,3 @@
-
 package com.bellias.opendata.weather;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -7,105 +6,97 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 import java.util.HashMap;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "id",
-    "main",
-    "description",
-    "icon"
-})
+@JsonPropertyOrder({"id", "main", "description", "icon"})
 
-/** The Construction of a class that is used for retrieving OpenWeatherMap API.
-* @since 31-05-2020
-* @version 1.4
-* @author John Violos */
+/**
+ * The Construction of a class that is used for retrieving OpenWeatherMap API.
+ *
+ * @author Panagiotis Bellias, John Violos
+ */
 public class Weather {
 
     @JsonProperty("id")
     private Integer id;
+
     @JsonProperty("main")
     private String main;
+
     @JsonProperty("description")
     private String description;
+
     @JsonProperty("icon")
     private String icon;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    /** No args constructor for use in serialization */
+    public Weather() {}
 
     /**
-     * No args constructor for use in serialization
-     * 
-     */
-    public Weather() {
-    }
-
-    /**
-     * 
      * @param icon
      * @param description
      * @param main
      * @param id
      */
     public Weather(Integer id, String main, String description, String icon) {
-        super();
-        this.id = id;
-        this.main = main;
-        this.description = description;
-        this.icon = icon;
+      super();
+      this.id = id;
+      this.main = main;
+      this.description = description;
+      this.icon = icon;
     }
 
     @JsonProperty("id")
     public Integer getId() {
-        return id;
+      return id;
     }
 
     @JsonProperty("id")
     public void setId(Integer id) {
-        this.id = id;
+      this.id = id;
     }
 
     @JsonProperty("main")
     public String getMain() {
-        return main;
+      return main;
     }
 
     @JsonProperty("main")
     public void setMain(String main) {
-        this.main = main;
+      this.main = main;
     }
 
     @JsonProperty("description")
     public String getDescription() {
-        return description;
+      return description;
     }
 
     @JsonProperty("description")
     public void setDescription(String description) {
-        this.description = description;
+      this.description = description;
     }
 
     @JsonProperty("icon")
     public String getIcon() {
-        return icon;
+      return icon;
     }
 
     @JsonProperty("icon")
     public void setIcon(String icon) {
-        this.icon = icon;
+      this.icon = icon;
     }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+      return this.additionalProperties;
     }
 
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+      this.additionalProperties.put(name, value);
     }
-
 }

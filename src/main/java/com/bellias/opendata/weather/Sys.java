@@ -1,4 +1,3 @@
-
 package com.bellias.opendata.weather;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -7,47 +6,40 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 import java.util.HashMap;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "type",
-    "id",
-    "country",
-    "sunrise",
-    "sunset"
-})
+@JsonPropertyOrder({"type", "id", "country", "sunrise", "sunset"})
 
-/** The Construction of a class that is used for retrieving OpenWeatherMap API.
-* @since 31-05-2020
-* @version 1.4
-* @author John Violos */
+/**
+ * The Construction of a class that is used for retrieving OpenWeatherMap API.
+ *
+ * @author Panagiotis Bellias, John Violos
+ */
 public class Sys {
 
     @JsonProperty("type")
     private Integer type;
+
     @JsonProperty("id")
     private Integer id;
+
     @JsonProperty("country")
     private String country;
+
     @JsonProperty("sunrise")
     private Integer sunrise;
+
     @JsonProperty("sunset")
     private Integer sunset;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    /** No args constructor for use in serialization */
+    public Sys() {}
 
     /**
-     * No args constructor for use in serialization
-     * 
-     */
-    public Sys() {
-    }
-
-    /**
-     * 
      * @param country
      * @param sunrise
      * @param sunset
@@ -55,72 +47,71 @@ public class Sys {
      * @param type
      */
     public Sys(Integer type, Integer id, String country, Integer sunrise, Integer sunset) {
-        super();
-        this.type = type;
-        this.id = id;
-        this.country = country;
-        this.sunrise = sunrise;
-        this.sunset = sunset;
+      super();
+      this.type = type;
+      this.id = id;
+      this.country = country;
+      this.sunrise = sunrise;
+      this.sunset = sunset;
     }
 
     @JsonProperty("type")
     public Integer getType() {
-        return type;
+      return type;
     }
 
     @JsonProperty("type")
     public void setType(Integer type) {
-        this.type = type;
+      this.type = type;
     }
 
     @JsonProperty("id")
     public Integer getId() {
-        return id;
+      return id;
     }
 
     @JsonProperty("id")
     public void setId(Integer id) {
-        this.id = id;
+      this.id = id;
     }
 
     @JsonProperty("country")
     public String getCountry() {
-        return country;
+      return country;
     }
 
     @JsonProperty("country")
     public void setCountry(String country) {
-        this.country = country;
+      this.country = country;
     }
 
     @JsonProperty("sunrise")
     public Integer getSunrise() {
-        return sunrise;
+      return sunrise;
     }
 
     @JsonProperty("sunrise")
     public void setSunrise(Integer sunrise) {
-        this.sunrise = sunrise;
+      this.sunrise = sunrise;
     }
 
     @JsonProperty("sunset")
     public Integer getSunset() {
-        return sunset;
+      return sunset;
     }
 
     @JsonProperty("sunset")
     public void setSunset(Integer sunset) {
-        this.sunset = sunset;
+      this.sunset = sunset;
     }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+      return this.additionalProperties;
     }
 
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+      this.additionalProperties.put(name, value);
     }
-
 }
