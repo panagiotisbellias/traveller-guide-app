@@ -1,0 +1,32 @@
+name: CI - Build & Test
+
+on:
+  push:
+    branches: [ main, development, task/setup-git-hub-actions-ci-for-build-and-tests-6cp55pw8JM2CW5vc ]
+  pull_request:
+    branches: [ main, development ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+
+      - name: Build and test
+        run: mvn -B verify
+
+      - name: Archive test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: target/surefire-reports/
