@@ -11,18 +11,20 @@ import java.io.IOException;
  */
 public class TravellerGuide {
 
-    // ==========================================================main()==========================================================
-    /**
-     * The method executes the app and just calls the Graphic User Interface (GUI).
-     *
-     * @param args the command line arguments
-     * @throws java.io.IOException
-     * @throws java.lang.ClassNotFoundException
-     */
-    // ==========================================================================================================================
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+  // ==========================================================main()==========================================================
+  /**
+   * The method executes the app and just calls the Graphic User Interface (GUI).
+   *
+   * @param args the command line arguments
+   * @throws java.io.IOException
+   * @throws java.lang.ClassNotFoundException
+   */
+  // ==========================================================================================================================
+  public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-      GUI gui = new GUI(); // Graphic User Interface (GUI) call
-    }
-    // ======================================================End of main()=======================================================
-} // ================================================End of Class TravellerGuide =================================================
+    GUI gui = new GUI(); // Graphic User Interface (GUI) call
+  }
+  // ======================================================End of
+  // main()=======================================================
+} // ================================================End of Class TravellerGuide
+  // =================================================

@@ -20,47 +20,47 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  */
 public class Extracts {
 
-    @JsonProperty("warnings")
-    private String warnings;
+  @JsonProperty("warnings")
+  private String warnings;
 
-    @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    /** No args constructor for use in serialization */
-    public Extracts() {}
+  /** No args constructor for use in serialization */
+  public Extracts() {}
 
-    /**
-     * @param warnings
-     */
-    public Extracts(String warnings) {
-      super();
-      this.warnings = warnings;
-    }
+  /**
+   * @param warnings
+   */
+  public Extracts(String warnings) {
+    super();
+    this.warnings = warnings;
+  }
 
-    @JsonProperty("warnings")
-    public String getWarnings() {
-      return warnings;
-    }
+  @JsonProperty("warnings")
+  public String getWarnings() {
+    return warnings;
+  }
 
-    @JsonProperty("warnings")
-    public void setWarnings(String warnings) {
-      this.warnings = warnings;
-    }
+  @JsonProperty("warnings")
+  public void setWarnings(String warnings) {
+    this.warnings = warnings;
+  }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-      return this.additionalProperties;
-    }
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+    return this.additionalProperties;
+  }
 
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-      this.additionalProperties.put(name, value);
-    }
+  @JsonAnySetter
+  public void setAdditionalProperty(String name, Object value) {
+    this.additionalProperties.put(name, value);
+  }
 
-    @Override
-    public String toString() {
-      return new ToStringBuilder(this)
-          .append("warnings", warnings)
-          .append("additionalProperties", additionalProperties)
-          .toString();
-    }
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this)
+        .append("warnings", warnings)
+        .append("additionalProperties", additionalProperties)
+        .toString();
+  }
 }

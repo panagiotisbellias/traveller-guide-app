@@ -20,95 +20,95 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  */
 public class Page {
 
-    @JsonProperty("pageid")
-    private Integer pageid;
+  @JsonProperty("pageid")
+  private Integer pageid;
 
-    @JsonProperty("ns")
-    private Integer ns;
+  @JsonProperty("ns")
+  private Integer ns;
 
-    @JsonProperty("title")
-    private String title;
+  @JsonProperty("title")
+  private String title;
 
-    @JsonProperty("extract")
-    private String extract;
+  @JsonProperty("extract")
+  private String extract;
 
-    @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    /** No args constructor for use in serialization */
-    public Page() {}
+  /** No args constructor for use in serialization */
+  public Page() {}
 
-    /**
-     * @param extract
-     * @param ns
-     * @param pageid
-     * @param title
-     */
-    public Page(Integer pageid, Integer ns, String title, String extract) {
-      super();
-      this.pageid = pageid;
-      this.ns = ns;
-      this.title = title;
-      this.extract = extract;
-    }
+  /**
+   * @param extract
+   * @param ns
+   * @param pageid
+   * @param title
+   */
+  public Page(Integer pageid, Integer ns, String title, String extract) {
+    super();
+    this.pageid = pageid;
+    this.ns = ns;
+    this.title = title;
+    this.extract = extract;
+  }
 
-    @JsonProperty("pageid")
-    public Integer getPageid() {
-      return pageid;
-    }
+  @JsonProperty("pageid")
+  public Integer getPageid() {
+    return pageid;
+  }
 
-    @JsonProperty("pageid")
-    public void setPageid(Integer pageid) {
-      this.pageid = pageid;
-    }
+  @JsonProperty("pageid")
+  public void setPageid(Integer pageid) {
+    this.pageid = pageid;
+  }
 
-    @JsonProperty("ns")
-    public Integer getNs() {
-      return ns;
-    }
+  @JsonProperty("ns")
+  public Integer getNs() {
+    return ns;
+  }
 
-    @JsonProperty("ns")
-    public void setNs(Integer ns) {
-      this.ns = ns;
-    }
+  @JsonProperty("ns")
+  public void setNs(Integer ns) {
+    this.ns = ns;
+  }
 
-    @JsonProperty("title")
-    public String getTitle() {
-      return title;
-    }
+  @JsonProperty("title")
+  public String getTitle() {
+    return title;
+  }
 
-    @JsonProperty("title")
-    public void setTitle(String title) {
-      this.title = title;
-    }
+  @JsonProperty("title")
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    @JsonProperty("extract")
-    public String getExtract() {
-      return extract;
-    }
+  @JsonProperty("extract")
+  public String getExtract() {
+    return extract;
+  }
 
-    @JsonProperty("extract")
-    public void setExtract(String extract) {
-      this.extract = extract;
-    }
+  @JsonProperty("extract")
+  public void setExtract(String extract) {
+    this.extract = extract;
+  }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-      return this.additionalProperties;
-    }
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+    return this.additionalProperties;
+  }
 
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-      this.additionalProperties.put(name, value);
-    }
+  @JsonAnySetter
+  public void setAdditionalProperty(String name, Object value) {
+    this.additionalProperties.put(name, value);
+  }
 
-    @Override
-    public String toString() {
-      return new ToStringBuilder(this)
-          .append("pageid", pageid)
-          .append("ns", ns)
-          .append("title", title)
-          .append("extract", extract)
-          .append("additionalProperties", additionalProperties)
-          .toString();
-    }
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this)
+        .append("pageid", pageid)
+        .append("ns", ns)
+        .append("title", title)
+        .append("extract", extract)
+        .append("additionalProperties", additionalProperties)
+        .toString();
+  }
 }

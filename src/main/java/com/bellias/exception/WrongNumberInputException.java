@@ -7,30 +7,33 @@ package com.bellias.exception;
  */
 public class WrongNumberInputException extends Exception {
 
-    private static final long serialVersionUID = 1L;
-    static int numExceptions = 0;
+  private static final long serialVersionUID = 1L;
+  static int numExceptions = 0;
 
-    // ==================================================WrongNumberInputException()=================================================
-    /** The constructor increases all the necessary fields. */
-    // ==============================================================================================================================
-    public WrongNumberInputException() {
-      numExceptions++;
-    }
+  // ==================================================WrongNumberInputException()=================================================
+  /** The constructor increases all the necessary fields. */
+  // ==============================================================================================================================
+  public WrongNumberInputException() {
+    numExceptions++;
+  }
 
-    // ===============================================End of WrongNumberInputException()=============================================
+  // ===============================================End of
+  // WrongNumberInputException()=============================================
 
-    // ==========================================================getMessage()========================================================
-    /**
-     * The method is implemented so as to specify the actions that thread will perform when starts
-     * running.
-     *
-     * @return a message explaining what this exception represents
-     */
-    // ==============================================================================================================================
-    @Override
-    public String getMessage() {
-      return "The number is not allowed.";
-    }
-    // =====================================================End of getMessage()======================================================
-    
-}// =====================================================End of Class WrongNumberInputException =================================================
+  // ==========================================================getMessage()========================================================
+  /**
+   * The method is implemented so as to specify the actions that thread will perform when starts
+   * running.
+   *
+   * @return a message explaining what this exception represents
+   */
+  // ==============================================================================================================================
+  @Override
+  public String getMessage() {
+    return "The number is not allowed.";
+  }
+  // =====================================================End of
+  // getMessage()======================================================
+
+} // =====================================================End of Class WrongNumberInputException
+  // =================================================

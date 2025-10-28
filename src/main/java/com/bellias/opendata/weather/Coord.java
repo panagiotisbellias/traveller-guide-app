@@ -19,54 +19,54 @@ import java.util.Map;
  */
 public class Coord {
 
-    @JsonProperty("lon")
-    private Double lon;
+  @JsonProperty("lon")
+  private Double lon;
 
-    @JsonProperty("lat")
-    private Double lat;
+  @JsonProperty("lat")
+  private Double lat;
 
-    @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    /** No args constructor for use in serialization */
-    public Coord() {}
+  /** No args constructor for use in serialization */
+  public Coord() {}
 
-    /**
-     * @param lon
-     * @param lat
-     */
-    public Coord(Double lon, Double lat) {
-      super();
-      this.lon = lon;
-      this.lat = lat;
-    }
+  /**
+   * @param lon
+   * @param lat
+   */
+  public Coord(Double lon, Double lat) {
+    super();
+    this.lon = lon;
+    this.lat = lat;
+  }
 
-    @JsonProperty("lon")
-    public Double getLon() {
-      return lon;
-    }
+  @JsonProperty("lon")
+  public Double getLon() {
+    return lon;
+  }
 
-    @JsonProperty("lon")
-    public void setLon(Double lon) {
-      this.lon = lon;
-    }
+  @JsonProperty("lon")
+  public void setLon(Double lon) {
+    this.lon = lon;
+  }
 
-    @JsonProperty("lat")
-    public Double getLat() {
-      return lat;
-    }
+  @JsonProperty("lat")
+  public Double getLat() {
+    return lat;
+  }
 
-    @JsonProperty("lat")
-    public void setLat(Double lat) {
-      this.lat = lat;
-    }
+  @JsonProperty("lat")
+  public void setLat(Double lat) {
+    this.lat = lat;
+  }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-      return this.additionalProperties;
-    }
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+    return this.additionalProperties;
+  }
 
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-      this.additionalProperties.put(name, value);
-    }
+  @JsonAnySetter
+  public void setAdditionalProperty(String name, Object value) {
+    this.additionalProperties.put(name, value);
+  }
 }
