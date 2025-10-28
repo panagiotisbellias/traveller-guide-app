@@ -2,7 +2,7 @@ name: CI - Build & Test
 
 on:
   push:
-    branches: [ main, development, task/setup-git-hub-actions-ci-for-build-and-tests-6cp55pw8JM2CW5vc ]
+    branches: [ main, development, task/introduce-code-style-checks-checkstyle-spotless-6cp55qR5Vgj27C6c ]
   pull_request:
     branches: [ main, development ]
 
@@ -20,6 +20,9 @@ jobs:
           distribution: temurin
           java-version: 21
           cache: maven
+
+      - name: Run Spotless check
+        run: mvn spotless:check
 
       - name: Build and test
         run: mvn -B verify
