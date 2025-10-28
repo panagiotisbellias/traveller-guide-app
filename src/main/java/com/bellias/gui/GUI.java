@@ -17,7 +17,7 @@ import javax.swing.*;
  */
 public class GUI {
 
-  private static final JFrame FRAME = new JFrame("Traveller Guide App");
+  private static JFrame frame;
   private static final JPanel PANEL = new JPanel();
 
   private static JLabel kindLabel,
@@ -80,13 +80,18 @@ public class GUI {
     if (Traveller.getTravellersNumber() > 0) // get the id of the last traveller in the arraylist
     id = travellers.get(Traveller.getTravellersNumber() - 1).getCustomerID() + 1;
 
-    // set up the frame and display it
-    FRAME.setSize(800, 700);
-    FRAME.setLocation(300, 25);
-    FRAME.add(PANEL);
-    placeComponents(PANEL);
-    FRAME.setVisible(true);
-    FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    // Only create JFrame if not headless
+    if (!GraphicsEnvironment.isHeadless()) {
+      frame = new JFrame("Traveller Guide App");
+      frame.setSize(800, 700);
+      frame.setLocation(300, 25);
+      frame.add(PANEL);
+      placeComponents(PANEL);
+      frame.setVisible(true);
+      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    } else {
+      System.out.println("Running in headless mode: GUI not initialized.");
+    }
   }
 
   // ======================================================End of
@@ -294,7 +299,7 @@ public class GUI {
 
   /* JFrame getter */
   public static JFrame getFRAME() {
-    return FRAME;
+    return frame;
   }
 
   /**
