@@ -149,18 +149,19 @@ public class DataProcessing implements MouseListener {
             suggestedCity =
                 traveller.CompareCities(weather, cityObjects); // comparing cities to find the best
           else {
-              List<RecommendedCity> recommendations = CollaborativeFiltering.getRecommendations(travellers, traveller);
+            List<RecommendedCity> recommendations =
+                CollaborativeFiltering.getRecommendations(travellers, traveller);
 
-              if (!recommendations.isEmpty()) {
-                  String[] cityParts = recommendations.getFirst().getCity().split(", ");
-                  suggestedCity = new City(cityParts[0], cityParts[1]);
-              }
+            if (!recommendations.isEmpty()) {
+              String[] cityParts = recommendations.getFirst().getCity().split(", ");
+              suggestedCity = new City(cityParts[0], cityParts[1]);
+            }
           }
 
           try {
-              traveller.setVisit(new ArrayList<>(List.of(
-                      suggestedCity.getCityName() + ", " + suggestedCity.getCityCountry()
-              )));
+            traveller.setVisit(
+                new ArrayList<>(
+                    List.of(suggestedCity.getCityName() + ", " + suggestedCity.getCityCountry())));
           } catch (NullPointerException ex) {
             traveller.setVisit(null);
           }
@@ -176,18 +177,19 @@ public class DataProcessing implements MouseListener {
             suggestedCity =
                 traveller.CompareCities(weather, cityObjects); // comparing cities to find the best
           else {
-              List<RecommendedCity> recommendations = CollaborativeFiltering.getRecommendations(travellers, traveller);
+            List<RecommendedCity> recommendations =
+                CollaborativeFiltering.getRecommendations(travellers, traveller);
 
-              if (!recommendations.isEmpty()) {
-                  String[] cityParts = recommendations.getFirst().getCity().split(", ");
-                  suggestedCity = new City(cityParts[0], cityParts[1]);
-              }
+            if (!recommendations.isEmpty()) {
+              String[] cityParts = recommendations.getFirst().getCity().split(", ");
+              suggestedCity = new City(cityParts[0], cityParts[1]);
+            }
           }
 
           try {
-              traveller.setVisit(new ArrayList<>(List.of(
-                      suggestedCity.getCityName() + ", " + suggestedCity.getCityCountry()
-              )));
+            traveller.setVisit(
+                new ArrayList<>(
+                    List.of(suggestedCity.getCityName() + ", " + suggestedCity.getCityCountry())));
           } catch (NullPointerException ex) {
             traveller.setVisit(null);
           }
@@ -209,18 +211,19 @@ public class DataProcessing implements MouseListener {
             suggestedCity =
                 traveller.CompareCities(weather, cityObjects); // comparing cities to find the best
           else {
-              List<RecommendedCity> recommendations = CollaborativeFiltering.getRecommendations(travellers, traveller);
+            List<RecommendedCity> recommendations =
+                CollaborativeFiltering.getRecommendations(travellers, traveller);
 
-              if (!recommendations.isEmpty()) {
-                  String[] cityParts = recommendations.getFirst().getCity().split(", ");
-                  suggestedCity = new City(cityParts[0], cityParts[1]);
-              }
+            if (!recommendations.isEmpty()) {
+              String[] cityParts = recommendations.getFirst().getCity().split(", ");
+              suggestedCity = new City(cityParts[0], cityParts[1]);
+            }
           }
 
           try {
-              traveller.setVisit(new ArrayList<>(List.of(
-                      suggestedCity.getCityName() + ", " + suggestedCity.getCityCountry()
-              )));
+            traveller.setVisit(
+                new ArrayList<>(
+                    List.of(suggestedCity.getCityName() + ", " + suggestedCity.getCityCountry())));
           } catch (NullPointerException ex) {
             traveller.setVisit(null);
           }

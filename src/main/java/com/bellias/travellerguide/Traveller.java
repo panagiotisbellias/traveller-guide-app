@@ -276,11 +276,11 @@ public class Traveller implements Comparable<Traveller>, Serializable {
    */
   // Variable visit's getter and setter...
   public ArrayList<String> getVisit() {
-      return visitedCities;
+    return visitedCities;
   }
 
   public void setVisit(ArrayList<String> visitedCities) {
-      this.visitedCities = (visitedCities != null) ? visitedCities : new ArrayList<>();
+    this.visitedCities = (visitedCities != null) ? visitedCities : new ArrayList<>();
   }
 
   // =========================================================Similarity()======================================================
