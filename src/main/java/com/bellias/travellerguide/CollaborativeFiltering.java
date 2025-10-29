@@ -3,7 +3,9 @@ package com.bellias.travellerguide;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * The Construction of a class that implements collaborative filtering.
@@ -17,29 +19,33 @@ public class CollaborativeFiltering {
    * The method calculates the suggested city according to collaborative filtering.
    *
    * @param collectionTravellers all the travellers existing in the system.
-   * @param candidateTraveller the traveller we want to suggest to him.
+   * @param candidateTraveller   the traveller we want to suggest to him.
    * @return a city object which is the finally suggested city.
    */
   // ==================================================================================================================================================
-  public static City collaborativeFilteringMethod(
+  public static List<RecommendedCity> getRecommendations(
       ArrayList<Traveller> collectionTravellers, Traveller candidateTraveller) {
 
+      if (candidateTraveller.getVisit().isEmpty()) {
+          return new ArrayList<>(); // no history → no recommendations
+      }
+
     ArrayList<String> candidateTravellerCriteria = candidateTraveller.getTravellerData();
+      ArrayList<String> candidateVisited = candidateTraveller.getVisit();
 
-    Optional<RecommendedCity> recommendedCity =
+      // Map each traveller to RecommendedCity (city + rank)
+      List<RecommendedCity> recommendations =
         collectionTravellers.stream()
-            .map(
-                i ->
-                    new RecommendedCity(
-                        i.getVisit(), innerDot(i.getTravellerData(), candidateTravellerCriteria)))
-            .max(Comparator.comparingInt(RecommendedCity::getRank));
+            .filter(t -> !t.equals(candidateTraveller)) // skip candidate
+                .flatMap(t -> t.getVisit().stream()
+                        .filter(city -> !candidateVisited.contains(city)) // exclude already visited
+                        .map(city -> new RecommendedCity(city,
+                                innerDot(t.getTravellerData(), candidateTravellerCriteria))))
+            .filter(rc -> rc.getRank() > 0)
+            .sorted(Comparator.comparingDouble(RecommendedCity::getRank).reversed()) // highest rank first
+            .collect(Collectors.toList());
 
-    String city = recommendedCity.get().getCity(); // Set the suggestedCityLabel with this!
-    String cityName[] = city.split(", ");
-
-    City suggestedCity = new City(cityName[0], cityName[1]);
-
-    return suggestedCity;
+      return recommendations;
   }
 
   // =======================================================End of
@@ -59,9 +65,7 @@ public class CollaborativeFiltering {
 
     int sum = 0;
 
-    Iterator<String> criterias = candidateTravellersCriteria.iterator();
-    while (criterias.hasNext()) {
-      String criteria = criterias.next();
+    for (String criteria : candidateTravellersCriteria) {
       if (currentTravellerCriterias.contains(criteria)) sum++;
     }
 

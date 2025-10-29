@@ -1,5 +1,7 @@
 package com.bellias.travellerguide;
 
+import java.util.Objects;
+
 /**
  * The Construction of a class that represents a city which gets ranking.
  *
@@ -8,7 +10,7 @@ package com.bellias.travellerguide;
 public class RecommendedCity {
 
   String City;
-  int rank;
+  double rank;
 
   // ====================================================RecommendedCity()=====================================================
   /**
@@ -18,7 +20,7 @@ public class RecommendedCity {
    * @param rank the rank which this city will have.
    */
   // ==========================================================================================================================
-  public RecommendedCity(String city, int rank) {
+  public RecommendedCity(String city, double rank) {
     super();
     City = city;
     this.rank = rank;
@@ -46,15 +48,33 @@ public class RecommendedCity {
   /**
    * @return the Rank
    */
-  public int getRank() {
+  public double getRank() {
     return rank;
   }
 
   /**
    * @param rank the rank which this city will have.
    */
-  public void setRank(int rank) {
+  public void setRank(double rank) {
     this.rank = rank;
+  }
+
+  @Override
+  public String toString() {
+    return "RecommendedCity{name='" + City + "', rank=" + rank + "}";
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RecommendedCity that = (RecommendedCity) o;
+    return Double.compare(that.rank, rank) == 0 && City.equals(that.City);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(City, rank);
   }
 } // ======================================================End of Class
   // ReoommendedCity======================================================

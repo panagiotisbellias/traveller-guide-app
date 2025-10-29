@@ -8,6 +8,7 @@ import com.bellias.storage.DataStoreFactory;
 import com.bellias.travellerguide.Business;
 import com.bellias.travellerguide.City;
 import com.bellias.travellerguide.CollaborativeFiltering;
+import com.bellias.travellerguide.RecommendedCity;
 import com.bellias.travellerguide.Tourist;
 import com.bellias.travellerguide.Traveller;
 import java.awt.event.MouseEvent;
@@ -17,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * The Construction of a class that runs the whole program according to event. Implements
@@ -146,12 +148,19 @@ public class DataProcessing implements MouseListener {
           if (!manyTravellers)
             suggestedCity =
                 traveller.CompareCities(weather, cityObjects); // comparing cities to find the best
-          else
-            suggestedCity =
-                CollaborativeFiltering.collaborativeFilteringMethod(travellers, traveller);
+          else {
+              List<RecommendedCity> recommendations = CollaborativeFiltering.getRecommendations(travellers, traveller);
+
+              if (!recommendations.isEmpty()) {
+                  String[] cityParts = recommendations.getFirst().getCity().split(", ");
+                  suggestedCity = new City(cityParts[0], cityParts[1]);
+              }
+          }
 
           try {
-            traveller.setVisit(suggestedCity.getCityName() + ", " + suggestedCity.getCityCountry());
+              traveller.setVisit(new ArrayList<>(List.of(
+                      suggestedCity.getCityName() + ", " + suggestedCity.getCityCountry()
+              )));
           } catch (NullPointerException ex) {
             traveller.setVisit(null);
           }
@@ -166,12 +175,19 @@ public class DataProcessing implements MouseListener {
           if (!manyTravellers)
             suggestedCity =
                 traveller.CompareCities(weather, cityObjects); // comparing cities to find the best
-          else
-            suggestedCity =
-                CollaborativeFiltering.collaborativeFilteringMethod(travellers, traveller);
+          else {
+              List<RecommendedCity> recommendations = CollaborativeFiltering.getRecommendations(travellers, traveller);
+
+              if (!recommendations.isEmpty()) {
+                  String[] cityParts = recommendations.getFirst().getCity().split(", ");
+                  suggestedCity = new City(cityParts[0], cityParts[1]);
+              }
+          }
 
           try {
-            traveller.setVisit(suggestedCity.getCityName() + ", " + suggestedCity.getCityCountry());
+              traveller.setVisit(new ArrayList<>(List.of(
+                      suggestedCity.getCityName() + ", " + suggestedCity.getCityCountry()
+              )));
           } catch (NullPointerException ex) {
             traveller.setVisit(null);
           }
@@ -192,12 +208,19 @@ public class DataProcessing implements MouseListener {
           if (!manyTravellers)
             suggestedCity =
                 traveller.CompareCities(weather, cityObjects); // comparing cities to find the best
-          else
-            suggestedCity =
-                CollaborativeFiltering.collaborativeFilteringMethod(travellers, traveller);
+          else {
+              List<RecommendedCity> recommendations = CollaborativeFiltering.getRecommendations(travellers, traveller);
+
+              if (!recommendations.isEmpty()) {
+                  String[] cityParts = recommendations.getFirst().getCity().split(", ");
+                  suggestedCity = new City(cityParts[0], cityParts[1]);
+              }
+          }
 
           try {
-            traveller.setVisit(suggestedCity.getCityName() + ", " + suggestedCity.getCityCountry());
+              traveller.setVisit(new ArrayList<>(List.of(
+                      suggestedCity.getCityName() + ", " + suggestedCity.getCityCountry()
+              )));
           } catch (NullPointerException ex) {
             traveller.setVisit(null);
           }

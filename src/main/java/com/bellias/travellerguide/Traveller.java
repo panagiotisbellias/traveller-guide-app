@@ -26,6 +26,7 @@ public class Traveller implements Comparable<Traveller>, Serializable {
   private ArrayList<String> travellerData; // Travellers' criteria
   private static int travellersNumber; // Number of travellers
   private String visit; // Holds city we recommended him
+  private ArrayList<String> visitedCities;
 
   // =========================================================compareTo()======================================================
   /**
@@ -65,6 +66,7 @@ public class Traveller implements Comparable<Traveller>, Serializable {
       double currentLon,
       ArrayList<String> suggestedCities,
       ArrayList<String> travellerData,
+      ArrayList<String> visitedCities,
       String visit,
       int customerID) {
 
@@ -76,6 +78,7 @@ public class Traveller implements Comparable<Traveller>, Serializable {
     this.suggestedCities = suggestedCities;
     this.travellerData = travellerData;
     this.visit = visit;
+    this.visitedCities = (visitedCities != null) ? visitedCities : new ArrayList<>();
     this.customerID = customerID;
   }
 
@@ -114,6 +117,7 @@ public class Traveller implements Comparable<Traveller>, Serializable {
     this.suggestedCities = suggestedCities;
     this.customerID = customerID;
     visit = "";
+    this.visitedCities = new ArrayList<>(this.suggestedCities);
   }
 
   // ======================================================End of
@@ -271,15 +275,12 @@ public class Traveller implements Comparable<Traveller>, Serializable {
    * @return the Visit
    */
   // Variable visit's getter and setter...
-  public String getVisit() {
-    return visit;
+  public ArrayList<String> getVisit() {
+      return visitedCities;
   }
 
-  /**
-   * @param visit the city that traveller was recommended to finally.
-   */
-  public void setVisit(String visit) {
-    this.visit = visit;
+  public void setVisit(ArrayList<String> visitedCities) {
+      this.visitedCities = (visitedCities != null) ? visitedCities : new ArrayList<>();
   }
 
   // =========================================================Similarity()======================================================
