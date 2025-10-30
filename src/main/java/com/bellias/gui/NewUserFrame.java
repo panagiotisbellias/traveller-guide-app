@@ -8,8 +8,7 @@ import java.awt.event.MouseListener;
 
 /**
  * Handles the "New User" confirmation dialog when the user attempts to add a new user.
- *
- * <p>Implements {@link MouseListener} to respond to mouse events.
+ * Implements {@link MouseListener} to respond to mouse events.
  *
  * @author Panagiotis Bellias
  */

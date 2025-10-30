@@ -12,12 +12,10 @@ import java.util.ArrayList;
 
 /**
  * The construction of a class that finds and shows the most popular city among user-inputted cities.
- *
- * <p>This class implements {@link MouseListener} and can be attached to GUI components to handle
+ * This class implements {@link MouseListener} and can be attached to GUI components to handle
  * mouse events. When clicked, it evaluates the popularity of cities entered by the user and shows
  * a message dialog with the most popular one.
- *
- * <p>Popular cities are also saved to a file for record-keeping.
+ * Popular cities are also saved to a file for record-keeping.
  *
  * @author Panagiotis Bellias
  */

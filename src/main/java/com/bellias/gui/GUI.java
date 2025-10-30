@@ -13,8 +13,7 @@ import java.util.Objects;
 
 /**
  * Constructs and manages the graphical user interface of the Traveller Guide App.
- *
- * <p>This class initializes and displays all UI components and provides accessors for them.
+ * This class initializes and displays all UI components and provides accessors for them.
  *
  * @author Panagiotis Bellias
  */

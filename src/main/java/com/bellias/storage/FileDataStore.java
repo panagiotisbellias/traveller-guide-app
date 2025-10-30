@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 /**
  * {@link DataStore} implementation that persists data to the filesystem.
- * <p>
  * This class supports two modes:
  * <ul>
  *   <li>Single-file mode: If the base path is a file (e.g., "travellers.txt"), all key-value
@@ -19,9 +18,7 @@ import java.util.ArrayList;
  *   <li>Directory mode: If the base path is a directory, each key is resolved to a file inside
  *       this directory.</li>
  * </ul>
- * <p>
  * Traveller objects are serialized/deserialized using Jackson's {@link ObjectMapper}.
- * </p>
  *
  * @author Panagiotis Bellias
  */
@@ -43,10 +40,8 @@ public class FileDataStore implements DataStore {
 
     /**
      * Resolves the actual filesystem path for a given key.
-     * <p>
      * In single-file mode, the base file is returned. In directory mode, relative keys are
      * appended to the base directory path, while absolute keys are returned as-is.
-     * </p>
      *
      * @param key the key to resolve
      * @return the resolved {@link Path} on the filesystem

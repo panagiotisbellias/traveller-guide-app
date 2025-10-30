@@ -5,12 +5,9 @@ import java.util.Arrays;
 
 /**
  * Utility class for reading from and writing to a {@link DataStore}.
- * <p>
  * This class provides simple methods to read lines from a key (treated as a text file) and
  * write lines to a key while avoiding duplicate entries. It is useful for managing text-based
  * storage in any {@link DataStore} implementation (file, memory, PostgreSQL, etc.).
- * </p>
- * <p>
  * Author: Panagiotis Bellias
  *
  * @param store The underlying data store used for reading and writing.
@@ -27,10 +24,8 @@ public record StorageUtil(DataStore store) {
 
     /**
      * Reads the content of a key from the {@link DataStore} as a list of lines.
-     * <p>
      * The content is split using any line break, and each line is added to the returned list.
      * If the key has no content, an empty list is returned.
-     * </p>
      *
      * @param key the key (file) from which data will be read
      * @return a list of lines from the file; empty if the key has no content
@@ -55,10 +50,8 @@ public record StorageUtil(DataStore store) {
 
     /**
      * Writes a line of content to the {@link DataStore} key, avoiding duplicates.
-     * <p>
      * If the key already contains the content, it will not be added again.
      * Otherwise, the content is appended and the entire set of lines is saved back.
-     * </p>
      *
      * @param key     the key (file) to which data will be written
      * @param content the text line to write to the file

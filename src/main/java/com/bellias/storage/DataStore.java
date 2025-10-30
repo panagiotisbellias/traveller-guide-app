@@ -6,11 +6,9 @@ import java.util.ArrayList;
 
 /**
  * Interface defining the basic operations for a data store.
- * <p>
  * Implementations of this interface are responsible for saving, loading, and deleting
  * both generic string values and {@link Traveller} objects. This allows flexibility
  * for storing data in different backends (e.g., files, databases, or in-memory storage).
- * </p>
  *
  * Example usage:
  * <pre>

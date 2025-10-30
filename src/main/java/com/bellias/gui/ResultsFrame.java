@@ -2,8 +2,6 @@ package com.bellias.gui;
 
 import com.bellias.travellerguide.City;
 import com.bellias.travellerguide.Traveller;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -16,12 +14,13 @@ import java.util.Collections;
 /**
  * Displays all travellers and the free ticket winner according to an event.
  * Implements MouseListener to respond to mouse events.
- * <p>
  * Author: Panagiotis Bellias
+ *
+ * @param APP_ID the application ID
+ * @param travellers the list of travellers
  */
 public record ResultsFrame(String APP_ID, ArrayList<Traveller> travellers) implements MouseListener {
 
-    private static final Logger log = LoggerFactory.getLogger(ResultsFrame.class);
     private static JDialog resultsDialog;
     private static JScrollPane jsp2;
     private static JLabel freeTicketLabel;

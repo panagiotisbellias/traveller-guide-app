@@ -6,7 +6,6 @@ import java.nio.file.Path;
 
 /**
  * Factory class for creating {@link DataStore} instances based on the application configuration.
- * <p>
  * The backend type is determined by the "storage.backend" property in {@link AppProperties}.
  * Supported backends include:
  * <ul>
@@ -15,14 +14,11 @@ import java.nio.file.Path;
  *   <li><b>postgres</b>: Uses {@link PostgresDataStore} with database URL, user, and password
  *       from configuration properties</li>
  * </ul>
- * </p>
- * <p>
  * Example usage:
  * <pre>
  * DataStore store = DataStoreFactory.create();
  * store.save("key", "value");
  * </pre>
- * </p>
  *
  * @author Panagiotis Bellias
  */
@@ -30,10 +26,8 @@ public class DataStoreFactory {
 
     /**
      * Creates and returns a {@link DataStore} instance based on the configured backend.
-     * <p>
      * The backend is determined by the "storage.backend" property in {@link AppProperties}.
      * Default is "file". If the backend is not supported, an {@link IllegalArgumentException} is thrown.
-     * </p>
      *
      * @return a {@link DataStore} instance corresponding to the configured backend
      * @throws IllegalArgumentException if the configured backend is not supported

@@ -14,7 +14,6 @@ import java.io.IOException;
 
 /**
  * Handles data retrieval from OpenWeatherMap API and MediaWiki API.
- * <p>
  * Author: Panagiotis Bellias, John Violos
  */
 public class OpenDataRest {

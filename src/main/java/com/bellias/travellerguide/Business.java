@@ -5,10 +5,8 @@ import java.util.Date;
 
 /**
  * Represents a business traveller, extending the base {@link Traveller} class.
- *
- * <p>Provides functionality to calculate similarity between the traveller’s current location and
+ * Provides functionality to calculate similarity between the traveller’s current location and
  * destination cities.
- * <p>
  * author Panagiotis Bellias
  */
 public class Business extends Traveller {

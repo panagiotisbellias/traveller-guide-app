@@ -24,12 +24,10 @@ import java.util.List;
 /**
  * A {@link MouseListener} implementation that drives the application's main data processing
  * logic when triggered by a GUI event.
- *
- * <p>This class collects input from the UI, validates it, retrieves data from OpenWeatherMap,
+ * This class collects input from the UI, validates it, retrieves data from OpenWeatherMap,
  * and generates a recommended city for the traveller using either content-based or collaborative
  * filtering.</p>
- *
- * <p>Depending on the traveller type (Traveller, Business, or Tourist), it constructs the
+ * Depending on the traveller type (Traveller, Business, or Tourist), it constructs the
  * appropriate subclass instance and saves the results through the {@link DataStoreFactory}.</p>
  *
  * @author

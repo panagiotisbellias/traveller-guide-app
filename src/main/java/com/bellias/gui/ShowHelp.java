@@ -14,7 +14,6 @@ import java.util.ArrayList;
 /**
  * Shows application help to the user.
  * Implements MouseListener to respond to mouse events.
- * <p>
  * Author: Panagiotis Bellias
  */
 public class ShowHelp implements MouseListener {

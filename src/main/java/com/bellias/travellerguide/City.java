@@ -13,8 +13,7 @@ import java.util.Objects;
 /**
  * Represents a city with its core characteristics such as name, country, coordinates, weather, and
  * descriptive data retrieved via APIs.
- *
- * <p>Provides functionality to configure a city by fetching weather and Wikipedia information.
+ * Provides functionality to configure a city by fetching weather and Wikipedia information.
  *
  * @author Panagiotis Bellias
  */
@@ -63,51 +62,62 @@ public class City {
     }
 
     // --- Getters and Setters ---
-
+    /** @return the city name */
     public String getCityName() {
         return cityName;
     }
 
+    /** @param cityName the city name to set */
     public void setCityName(String cityName) {
         this.cityName = cityName;
     }
 
+    /** @return the city country */
     public String getCityCountry() {
         return cityCountry;
     }
 
+    /** @param cityCountry the city country to set */
     public void setCityCountry(String cityCountry) {
         this.cityCountry = cityCountry;
     }
 
+    /** @return the city data */
     public String getCityData() {
         return cityData;
     }
 
+    /** @param cityData the city data to set */
     public void setCityData(String cityData) {
         this.cityData = cityData;
     }
 
+    /** @return the weather */
     public String getWeather() {
         return weather;
     }
 
+    /** @param weather the weather to set */
     public void setWeather(String weather) {
         this.weather = weather;
     }
 
+    /** @return the lat */
     public double getLat() {
         return lat;
     }
 
+    /** @param lat the lat to set */
     public void setLat(double lat) {
         this.lat = lat;
     }
 
+    /** @return the lon */
     public double getLon() {
         return lon;
     }
 
+    /** @param lon the lon to set */
     public void setLon(double lon) {
         this.lon = lon;
     }
@@ -115,13 +125,13 @@ public class City {
     /**
      * Configures the city by retrieving weather and Wikipedia data from external APIs.
      *
-     * @param APPID the OpenWeatherMap API key
+     * @param appId the OpenWeatherMap API key
      */
-    public void configureCity(String APPID) {
+    public void configureCity(String appId) {
         WikiThread wikiT;
         WeatherThread weatherT;
         try {
-            weatherT = new WeatherThread("citywt", getCityName(), getCityCountry(), APPID);
+            weatherT = new WeatherThread("citywt", getCityName(), getCityCountry(), appId);
             weatherT.start();
 
             while (weatherT.getOpenWeatherMapObject() == null) {

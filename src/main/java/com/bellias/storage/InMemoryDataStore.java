@@ -8,12 +8,9 @@ import java.util.Map;
 
 /**
  * {@link DataStore} implementation that stores data in memory.
- * <p>
  * This class is mainly intended for testing or short-lived data storage since all
  * data is lost when the application terminates.
- * </p>
- *
- * <p>It supports two types of storage:</p>
+ * It supports two types of storage:
  * <ul>
  *   <li>String key-value pairs</li>
  *   <li>Lists of {@link Traveller} objects</li>

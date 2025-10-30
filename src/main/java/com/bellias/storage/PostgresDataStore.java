@@ -14,14 +14,10 @@ import java.util.ArrayList;
 
 /**
  * {@link DataStore} implementation that stores data in a PostgreSQL database.
- * <p>
  * This class manages storage of generic key-value pairs as well as lists of {@link Traveller} objects.
  * It uses JSON serialization for storing travellers and ensures that the database schema is created on initialization.
- * </p>
- *
- * <p>All operations throw {@link DataStoreException} on failure.</p>
- *
- * <p>Author: Panagiotis Bellias, John Violos</p>
+ * All operations throw {@link DataStoreException} on failure.
+ * Author: Panagiotis Bellias, John Violos
  */
 public class PostgresDataStore implements DataStore {
 
@@ -46,14 +42,12 @@ public class PostgresDataStore implements DataStore {
 
     /**
      * Initializes the database schema if it does not exist.
-     * <p>
      * Creates a "travellers" table with columns:
      * <ul>
      *   <li>id: serial primary key</li>
      *   <li>key: text, unique key</li>
      *   <li>data: JSONB, storing the value</li>
      * </ul>
-     * </p>
      * @throws DataStoreException if schema creation fails
      */
     private void initSchema() {
@@ -84,9 +78,7 @@ public class PostgresDataStore implements DataStore {
 
     /**
      * Saves a string value under the specified key in the database.
-     * <p>
      * If the key already exists, the value is updated.
-     * </p>
      *
      * @param key the key under which to store the value
      * @param value the string value to store
@@ -150,9 +142,7 @@ public class PostgresDataStore implements DataStore {
 
     /**
      * Saves a list of {@link Traveller} objects under the specified key.
-     * <p>
      * The list is serialized to JSON before storage.
-     * </p>
      *
      * @param key the key to store the travellers under
      * @param travellers the list of travellers to save
@@ -170,9 +160,7 @@ public class PostgresDataStore implements DataStore {
 
     /**
      * Loads a list of {@link Traveller} objects stored under the specified key.
-     * <p>
      * If no data exists for the key, an empty list is returned.
-     * </p>
      *
      * @param key the key to load travellers from
      * @return a list of travellers

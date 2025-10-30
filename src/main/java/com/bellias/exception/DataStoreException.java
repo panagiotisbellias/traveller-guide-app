@@ -3,8 +3,7 @@ package com.bellias.exception;
 /**
  * The construction of a custom runtime exception that represents errors
  * occurring in the data storage layer.
- *
- * <p>This exception can wrap an underlying cause or be used with a custom message only.
+ * This exception can wrap an underlying cause or be used with a custom message only.
  * It extends {@link RuntimeException}, so it is unchecked.
  *
  * @author Panagiotis Bellias

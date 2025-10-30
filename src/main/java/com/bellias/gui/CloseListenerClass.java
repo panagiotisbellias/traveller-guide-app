@@ -6,11 +6,9 @@ import java.awt.event.ActionListener;
 /**
  * The construction of a simple {@link ActionListener} that closes the application
  * when triggered.
- *
- * <p>This class can be attached to a button or menu item in a GUI. When the action
+ * This class can be attached to a button or menu item in a GUI. When the action
  * is performed, the application exits immediately.
- *
- * <p>Note: The implementation currently calls {@link System#exit(int)} with status 0.
+ * Note: The implementation currently calls {@link System#exit(int)} with status 0.
  *
  * @author Panagiotis Bellias
  */

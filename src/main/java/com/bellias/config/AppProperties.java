@@ -7,12 +7,10 @@ import java.util.Properties;
 /**
  * The construction of a utility class that loads application properties from
  * the "application.properties" file and provides access methods.
- *
- * <p>Properties are loaded from the file in the classpath and can be overridden
+ * Properties are loaded from the file in the classpath and can be overridden
  * by environment variables. If a property is not found, a default value can
  * be provided.
- *
- * <p>All methods are static and the class cannot be instantiated.
+ * All methods are static and the class cannot be instantiated.
  *
  * @author Panagiotis Bellias
  */
@@ -34,8 +32,7 @@ public class AppProperties {
 
     /**
      * Retrieves a property value by key with a default fallback.
-     *
-     * <p>Property lookup priority:
+     * Property lookup priority:
      * <ol>
      *   <li>Environment variable (converted to upper case with dots replaced by underscores)</li>
      *   <li>application.properties file</li>
@@ -53,8 +50,7 @@ public class AppProperties {
 
     /**
      * Retrieves the path to the travellers data file.
-     *
-     * <p>Property key: "storage.travellersFile", default value: "travellers.json".
+     * Property key: "storage.travellersFile", default value: "travellers.json".
      *
      * @return the travellers file path
      */
@@ -64,8 +60,7 @@ public class AppProperties {
 
     /**
      * Retrieves the path to the popular cities data file.
-     *
-     * <p>Property key: "storage.popularCitiesFile", default value: "popular_cities.json".
+     * Property key: "storage.popularCitiesFile", default value: "popular_cities.json".
      *
      * @return the popular cities file path
      */
@@ -75,8 +70,7 @@ public class AppProperties {
 
     /**
      * Retrieves the path to the help documentation file.
-     *
-     * <p>Property key: "storage.helpFile", default value: "docs/help.txt".
+     * Property key: "storage.helpFile", default value: "docs/help.txt".
      *
      * @return the help file path
      */

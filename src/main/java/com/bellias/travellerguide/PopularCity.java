@@ -9,9 +9,7 @@ import java.io.IOException;
 
 /**
  * Represents a popular city with a name, country, and popularity score.
- * <p>
  * Popularity can be calculated based on the total number of words in the city's Wikipedia article.
- * </p>
  *
  * @author Panagiotis Bellias
  */
@@ -117,9 +115,7 @@ public class PopularCity {
     /**
      * Calculates the popularity of the city by retrieving its Wikipedia article and counting
      * the total number of words.
-     * <p>
      * If the Wikipedia article cannot be retrieved, the popularity will remain 0.
-     * </p>
      */
     public void calculatePopularity() {
 
