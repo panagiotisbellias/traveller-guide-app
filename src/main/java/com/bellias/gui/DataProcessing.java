@@ -26,9 +26,9 @@ import java.util.List;
  * logic when triggered by a GUI event.
  * This class collects input from the UI, validates it, retrieves data from OpenWeatherMap,
  * and generates a recommended city for the traveller using either content-based or collaborative
- * filtering.</p>
+ * filtering.
  * Depending on the traveller type (Traveller, Business, or Tourist), it constructs the
- * appropriate subclass instance and saves the results through the {@link DataStoreFactory}.</p>
+ * appropriate subclass instance and saves the results through the {@link DataStoreFactory}.
  *
  * @author
  *     Panagiotis Bellias

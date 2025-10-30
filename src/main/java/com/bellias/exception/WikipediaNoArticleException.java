@@ -5,7 +5,7 @@ import java.io.Serial;
 /**
  * Exception thrown when a Wikipedia article cannot be found for a specified city.
  * This exception is typically used when attempting to fetch or process data from
- * Wikipedia for a city name that does not correspond to an existing article.</p>
+ * Wikipedia for a city name that does not correspond to an existing article.
  *
  * @author Panagiotis Bellias
  * @author John Violos

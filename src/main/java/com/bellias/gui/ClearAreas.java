@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
  * A {@link MouseListener} implementation that clears all input areas in the GUI
  * when the user clicks a specific component (e.g. a "Clear" button).
  * This listener resets all form fields in the {@link GUI} class to their default
- * values and hides suggestion or error labels.</p>
+ * values and hides suggestion or error labels.
  *
  * @author Panagiotis Bellias
  */
@@ -16,7 +16,7 @@ public class ClearAreas implements MouseListener {
     /**
      * Handles the mouse click event.
      * When triggered, this method clears all input fields, resets combo boxes,
-     * hides labels, and logs the action to the console.</p>
+     * hides labels, and logs the action to the console.
      *
      * @param e the mouse click event
      */

@@ -11,7 +11,7 @@ import java.util.Objects;
  * Represents a traveller with personal information, preferences, visited cities, and suggested
  * cities. Implements Comparable to allow sorting by age and Serializable for persistence.
  * Provides methods to calculate similarity with cities, find the most suitable traveller for
- * promotions, and manage traveller data.</p>
+ * promotions, and manage traveller data.
  *
  * @author Panagiotis Bellias
  */
