@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: javadoc
-          path: target/site/apidocs/
+          path: target/reports/apidocs/
 
       - name: Archive test results
         if: always()
