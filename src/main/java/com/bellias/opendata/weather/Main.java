@@ -6,133 +6,206 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.util.HashMap;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"temp", "feels_like", "temp_min", "temp_max", "pressure", "humidity"})
 
-/**
- * The Construction of a class that handles OpenWeatherMap API datas.
- *
- * @author Panagiotis Bellias, John Violos
- */
 public class Main {
 
-  @JsonProperty("temp")
-  private Double temp;
+    @JsonProperty("temp")
+    private Double temp;
 
-  @JsonProperty("feels_like")
-  private Double feelsLike;
+    @JsonProperty("feels_like")
+    private Double feelsLike;
 
-  @JsonProperty("temp_min")
-  private Double tempMin;
+    @JsonProperty("temp_min")
+    private Double tempMin;
 
-  @JsonProperty("temp_max")
-  private Double tempMax;
+    @JsonProperty("temp_max")
+    private Double tempMax;
 
-  @JsonProperty("pressure")
-  private Integer pressure;
+    @JsonProperty("pressure")
+    private Integer pressure;
 
-  @JsonProperty("humidity")
-  private Integer humidity;
+    @JsonProperty("humidity")
+    private Integer humidity;
 
-  @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    @JsonIgnore
+    private final Map<String, Object> additionalProperties = new HashMap<>();
 
-  /** No args constructor for use in serialization */
-  public Main() {}
+    /**
+     * No-args constructor for serialization/deserialization purposes.
+     */
+    public Main() {}
 
-  /**
-   * @param feelsLike
-   * @param tempMax
-   * @param temp
-   * @param humidity
-   * @param pressure
-   * @param tempMin
-   */
-  public Main(
-      Double temp,
-      Double feelsLike,
-      Double tempMin,
-      Double tempMax,
-      Integer pressure,
-      Integer humidity) {
-    super();
-    this.temp = temp;
-    this.feelsLike = feelsLike;
-    this.tempMin = tempMin;
-    this.tempMax = tempMax;
-    this.pressure = pressure;
-    this.humidity = humidity;
-  }
+    /**
+     * Constructor with all known fields.
+     *
+     * @param temp current temperature
+     * @param feelsLike perceived temperature
+     * @param tempMin minimum temperature
+     * @param tempMax maximum temperature
+     * @param pressure atmospheric pressure
+     * @param humidity humidity percentage
+     */
+    public Main(
+            Double temp,
+            Double feelsLike,
+            Double tempMin,
+            Double tempMax,
+            Integer pressure,
+            Integer humidity) {
+        super();
+        this.temp = temp;
+        this.feelsLike = feelsLike;
+        this.tempMin = tempMin;
+        this.tempMax = tempMax;
+        this.pressure = pressure;
+        this.humidity = humidity;
+    }
 
-  @JsonProperty("temp")
-  public Double getTemp() {
-    return temp;
-  }
+    /**
+     * Gets the current temperature.
+     *
+     * @return the temperature
+     */
+    @JsonProperty("temp")
+    public Double getTemp() {
+        return temp;
+    }
 
-  @JsonProperty("temp")
-  public void setTemp(Double temp) {
-    this.temp = temp;
-  }
+    /**
+     * Sets the current temperature.
+     *
+     * @param temp the temperature to set
+     */
+    @JsonProperty("temp")
+    public void setTemp(Double temp) {
+        this.temp = temp;
+    }
 
-  @JsonProperty("feels_like")
-  public Double getFeelsLike() {
-    return feelsLike;
-  }
+    /**
+     * Gets the perceived (feels like) temperature.
+     *
+     * @return the feelsLike temperature
+     */
+    @JsonProperty("feels_like")
+    public Double getFeelsLike() {
+        return feelsLike;
+    }
 
-  @JsonProperty("feels_like")
-  public void setFeelsLike(Double feelsLike) {
-    this.feelsLike = feelsLike;
-  }
+    /**
+     * Sets the perceived (feels like) temperature.
+     *
+     * @param feelsLike the feelsLike temperature to set
+     */
+    @JsonProperty("feels_like")
+    public void setFeelsLike(Double feelsLike) {
+        this.feelsLike = feelsLike;
+    }
 
-  @JsonProperty("temp_min")
-  public Double getTempMin() {
-    return tempMin;
-  }
+    /**
+     * Gets the minimum temperature.
+     *
+     * @return the minimum temperature
+     */
+    @JsonProperty("temp_min")
+    public Double getTempMin() {
+        return tempMin;
+    }
 
-  @JsonProperty("temp_min")
-  public void setTempMin(Double tempMin) {
-    this.tempMin = tempMin;
-  }
+    /**
+     * Sets the minimum temperature.
+     *
+     * @param tempMin the minimum temperature to set
+     */
+    @JsonProperty("temp_min")
+    public void setTempMin(Double tempMin) {
+        this.tempMin = tempMin;
+    }
 
-  @JsonProperty("temp_max")
-  public Double getTempMax() {
-    return tempMax;
-  }
+    /**
+     * Gets the maximum temperature.
+     *
+     * @return the maximum temperature
+     */
+    @JsonProperty("temp_max")
+    public Double getTempMax() {
+        return tempMax;
+    }
 
-  @JsonProperty("temp_max")
-  public void setTempMax(Double tempMax) {
-    this.tempMax = tempMax;
-  }
+    /**
+     * Sets the maximum temperature.
+     *
+     * @param tempMax the maximum temperature to set
+     */
+    @JsonProperty("temp_max")
+    public void setTempMax(Double tempMax) {
+        this.tempMax = tempMax;
+    }
 
-  @JsonProperty("pressure")
-  public Integer getPressure() {
-    return pressure;
-  }
+    /**
+     * Gets the atmospheric pressure.
+     *
+     * @return the pressure
+     */
+    @JsonProperty("pressure")
+    public Integer getPressure() {
+        return pressure;
+    }
 
-  @JsonProperty("pressure")
-  public void setPressure(Integer pressure) {
-    this.pressure = pressure;
-  }
+    /**
+     * Sets the atmospheric pressure.
+     *
+     * @param pressure the pressure to set
+     */
+    @JsonProperty("pressure")
+    public void setPressure(Integer pressure) {
+        this.pressure = pressure;
+    }
 
-  @JsonProperty("humidity")
-  public Integer getHumidity() {
-    return humidity;
-  }
+    /**
+     * Gets the humidity percentage.
+     *
+     * @return the humidity
+     */
+    @JsonProperty("humidity")
+    public Integer getHumidity() {
+        return humidity;
+    }
 
-  @JsonProperty("humidity")
-  public void setHumidity(Integer humidity) {
-    this.humidity = humidity;
-  }
+    /**
+     * Sets the humidity percentage.
+     *
+     * @param humidity the humidity to set
+     */
+    @JsonProperty("humidity")
+    public void setHumidity(Integer humidity) {
+        this.humidity = humidity;
+    }
 
-  @JsonAnyGetter
-  public Map<String, Object> getAdditionalProperties() {
-    return this.additionalProperties;
-  }
+    /**
+     * Returns a map of additional properties that are not explicitly defined in this class.
+     *
+     * @return a map of additional unknown properties
+     */
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
 
-  @JsonAnySetter
-  public void setAdditionalProperty(String name, Object value) {
-    this.additionalProperties.put(name, value);
-  }
+    /**
+     * Adds a property to this object. Used during deserialization for unknown fields.
+     *
+     * @param name the property name
+     * @param value the property value
+     */
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
+
 }

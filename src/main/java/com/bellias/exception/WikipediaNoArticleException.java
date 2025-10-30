@@ -1,45 +1,53 @@
 package com.bellias.exception;
 
+import java.io.Serial;
+
 /**
- * The Construction of a class that sets a new type of Exception.
+ * Exception thrown when a Wikipedia article cannot be found for a specified city.
  *
- * @author Panagiotis Bellias, John Violos
+ * <p>This exception is typically used when attempting to fetch or process data from
+ * Wikipedia for a city name that does not correspond to an existing article.</p>
+ *
+ * @author Panagiotis Bellias
+ * @author John Violos
  */
 public class WikipediaNoArticleException extends Exception {
 
-  private static final long serialVersionUID = 1L;
-  static int numExceptions = 0;
-  private final String cityName;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-  // ==================================================WikipediaNoArticleException()=================================================
-  /**
-   * The constructor initializes all the necessary fields with specific values.
-   *
-   * @param in_cityName the city.
-   */
-  // ================================================================================================================================
-  public WikipediaNoArticleException(String in_cityName) {
-    numExceptions++;
-    this.cityName = in_cityName;
-  }
+    /** Counter tracking how many times this exception has been created. */
+    private static int numExceptions = 0;
 
-  // ===============================================End of
-  // WikipediaNoArticleException()=============================================
+    /** The name of the city for which no Wikipedia article was found. */
+    private final String cityName;
 
-  // ===========================================================getMessage()=========================================================
-  /**
-   * The method is implemented so as to specify the actions that thread will perform when starts
-   * running.
-   *
-   * @return a message explaining what this exception represents
-   */
-  // ================================================================================================================================
-  @Override
-  public String getMessage() {
-    return "There is not any wikipedia article with title " + cityName + ".";
-  }
-  // =======================================================End of
-  // getMessage()======================================================
+    /**
+     * Constructs a new {@code WikipediaNoArticleException} for the given city.
+     *
+     * @param cityName the name of the city without a corresponding Wikipedia article
+     */
+    public WikipediaNoArticleException(String cityName) {
+        numExceptions++;
+        this.cityName = cityName;
+    }
 
-} // =====================================================End of Class WikipediaNoArticleException
-  // =================================================
+    /**
+     * Returns a descriptive message indicating that no article exists for the specified city.
+     *
+     * @return a human-readable error message
+     */
+    @Override
+    public String getMessage() {
+        return "No Wikipedia article found with title \"" + cityName + "\".";
+    }
+
+    /**
+     * Returns the total number of {@code WikipediaNoArticleException} instances created.
+     *
+     * @return number of times this exception has been instantiated
+     */
+    public static int getNumExceptions() {
+        return numExceptions;
+    }
+}

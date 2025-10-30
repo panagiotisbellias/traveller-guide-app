@@ -1,21 +1,16 @@
 package com.bellias.travellerguide;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CollaborativeFilteringTest {
-
-  private CollaborativeFiltering filtering;
-
-  @BeforeEach
-  void setup() {
-    filtering = new CollaborativeFiltering();
-  }
 
   @Test
   void shouldGenerateRecommendationsForTraveller() {
@@ -41,7 +36,7 @@ class CollaborativeFilteringTest {
     allTravellers.add(otherTraveller); // add other traveller
     allTravellers.add(candidate); // candidate too (optional)
 
-    List<RecommendedCity> recommendations = filtering.getRecommendations(allTravellers, candidate);
+    List<RecommendedCity> recommendations = CollaborativeFiltering.getRecommendations(allTravellers, candidate);
 
     assertNotNull(recommendations, "Recommendations list should not be null");
     assertFalse(recommendations.isEmpty(), "Recommendations should not be empty");
@@ -63,7 +58,7 @@ class CollaborativeFilteringTest {
 
     ArrayList<Traveller> allTravellers = new ArrayList<>();
     allTravellers.add(traveller);
-    List<RecommendedCity> recommendations = filtering.getRecommendations(allTravellers, traveller);
+    List<RecommendedCity> recommendations = CollaborativeFiltering.getRecommendations(allTravellers, traveller);
 
     assertTrue(
         recommendations.isEmpty(), "Traveller with no history should yield no recommendations");

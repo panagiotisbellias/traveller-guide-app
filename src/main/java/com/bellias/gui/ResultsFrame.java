@@ -1,270 +1,171 @@
 package com.bellias.gui;
 
-import com.bellias.exception.WikipediaNoArticleException;
 import com.bellias.travellerguide.City;
 import com.bellias.travellerguide.Traveller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 /**
- * The Construction of a class that shows user all travellers and free ticket winner according to
- * event. Implements MouseListener Interface.
- *
- * @author Panagiotis Bellias
+ * Displays all travellers and the free ticket winner according to an event.
+ * Implements MouseListener to respond to mouse events.
+ * <p>
+ * Author: Panagiotis Bellias
  */
-public class ResultsFrame implements MouseListener {
+public record ResultsFrame(String APP_ID, ArrayList<Traveller> travellers) implements MouseListener {
 
-  private static JDialog resultsDialog;
-  private static JTable travellersTable;
-  private static JScrollPane jsp2;
-  private static JLabel freeTicketLabel;
+    private static final Logger log = LoggerFactory.getLogger(ResultsFrame.class);
+    private static JDialog resultsDialog;
+    private static JScrollPane jsp2;
+    private static JLabel freeTicketLabel;
 
-  private final String APP_ID;
-  private final ArrayList<Traveller> travellers;
-
-  // =======================================================ResultsFrame()=====================================================
-  /**
-   * The constructor initializes all the necessary fields with specific values.
-   *
-   * @param APP_ID our OpenWeatherMap API id.
-   * @param travellers the ArrayList of Traveller objects where users are kept.
-   */
-  // ==========================================================================================================================
-  public ResultsFrame(String APP_ID, ArrayList<Traveller> travellers) {
-
-    this.APP_ID = APP_ID;
-    this.travellers = travellers;
-  }
-
-  // ===================================================End of
-  // ResultsFrame()================================================
-
-  // Getters and setters
-
-  /**
-   * @return the Jsp2
-   */
-  public static JScrollPane getJsp2() {
-    return jsp2;
-  }
-
-  /**
-   * @param jsp2 the JScrollPane for travellers.
-   */
-  public static void setJsp2(JScrollPane jsp2) {
-    ResultsFrame.jsp2 = jsp2;
-  }
-
-  // =======================================================mouseClicked()=====================================================
-  /**
-   * The method is implemented so as to catch mouse-clicked event and shows user all travellers and
-   * free ticket winner.
-   *
-   * @param e the event which gets caught when happens.
-   */
-  // ==========================================================================================================================
-  @Override
-  public void mouseClicked(MouseEvent e) {
-    JFrame f = new JFrame();
-    resultsDialog = new JDialog(f, "Results", true);
-    resultsDialog.setLayout(new FlowLayout());
-
-    // JTable
-    // Set ages...
-    Traveller.setAgesForAll(travellers);
-
-    // Present travellers sorted by age without dublicates...
-    ArrayList<Traveller> sortedList = new ArrayList();
-    travellersAfterSorting(travellers, sortedList);
-    setTravellersToTable(sortedList);
-
-    // FreeTicket
-    freeTicketLabel = new JLabel();
-    freeTicketLabel.setBounds(10, 50, 160, 100);
-
-    try {
-      // Free ticket...
-      freeTicket(travellers, "Athens", "GR", APP_ID); // Method to handle free ticket
-    } catch (IOException | WikipediaNoArticleException ex) {
-      System.out.println(ex);
+    /**
+     * Constructor initializes fields with specific values.
+     *
+     * @param APP_ID     our OpenWeatherMap API ID
+     * @param travellers list of Traveller objects
+     */
+    public ResultsFrame {
     }
 
-    JButton exitButton = new JButton("Exit");
-    exitButton.setBounds(200, 520, 60, 40);
-    resultsDialog.add(exitButton);
-    exitButton.addActionListener(new CloseListenerClass());
-
-    resultsDialog.setSize(600, 600);
-    resultsDialog.setVisible(true);
-    resultsDialog.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-  }
-
-  // ====================================================End of
-  // mouseClicked()=================================================
-
-  // =======================================================mousePressed()=====================================================
-  /**
-   * The method is implemented so as to catch mouse-pressed event and executes many commands.
-   * Auto-generated method stub.
-   *
-   * @param e the event which gets caught when happens.
-   */
-  // ==========================================================================================================================
-  @Override
-  public void mousePressed(MouseEvent e) {}
-
-  // ====================================================End of
-  // mousePressed()=================================================
-
-  // =======================================================mouseReleased()====================================================
-  /**
-   * The method is implemented so as to catch mouse-released event and executes many commands.
-   * Auto-generated method stub.
-   *
-   * @param e the event which gets caught when happens.
-   */
-  // ==========================================================================================================================
-  @Override
-  public void mouseReleased(MouseEvent e) {}
-
-  // ====================================================End of
-  // mouseReleased()================================================
-
-  // =======================================================mouseEntered()=====================================================
-  /**
-   * The method is implemented so as to catch mouse-entered event and executes many commands.
-   * Auto-generated method stub.
-   *
-   * @param e the event which gets caught when happens.
-   */
-  // ==========================================================================================================================
-  @Override
-  public void mouseEntered(MouseEvent e) {}
-
-  // ====================================================End of
-  // mouseEntered()=================================================
-
-  // =======================================================mouseExited()======================================================
-  /**
-   * The method is implemented so as to catch mouse-exited event and executes many commands.
-   * Auto-generated method stub.
-   *
-   * @param e the event which gets caught when happens.
-   */
-  // ==========================================================================================================================
-  @Override
-  public void mouseExited(MouseEvent e) {}
-
-  // ====================================================End of
-  // mouseExited()==================================================
-
-  // =================================================travellersAfterSorting()=================================================
-  /**
-   * The method sets travellers sorted by age without dublicates.
-   *
-   * @param travellers the travellers given to get sorted by age.
-   * @param sortedList the sorted travellers.
-   */
-  // ==========================================================================================================================
-  public static void travellersAfterSorting(
-      ArrayList<Traveller> travellers, ArrayList<Traveller> sortedList) {
-
-    Collections.sort(travellers);
-
-    for (Traveller traveller : travellers) {
-      if (!sortedList.contains(traveller)) sortedList.add(traveller);
-    }
-  }
-
-  // =============================================End of
-  // travellersAfterSorting()==============================================
-
-  // ==================================================setTravellersToTable()==================================================
-  /**
-   * The method puts travellers into JTable.
-   *
-   * @param travellers the travellers who must be putted into the JTable.
-   */
-  // ==========================================================================================================================
-  public static void setTravellersToTable(ArrayList<Traveller> travellers) {
-
-    // Part VVII: Print all travellers output...
-    // Creating JTable
-    final String[] columnNames = {"Full name", "Age"};
-
-    int arraySize = travellers.size();
-    Object[][] sorted = new Object[arraySize][2];
-
-    Iterator<Traveller> tr = travellers.iterator();
-    int i = 0;
-    while (tr.hasNext()) {
-      Traveller t = tr.next();
-      sorted[i][0] = t.getName();
-      sorted[i][1] = t.getAge();
+    /* Getters and setters */
+    public static JScrollPane getJsp2() {
+        return jsp2;
     }
 
-    final DefaultTableModel dtm = new DefaultTableModel(sorted, columnNames);
-    travellersTable = new JTable(dtm);
-    jsp2 = new JScrollPane();
-    jsp2.getViewport().add(travellersTable);
-    jsp2.setBounds(10, 10, 400, 10 * travellers.size());
-    jsp2.setVisible(true);
-    resultsDialog.add(jsp2);
-  }
-
-  // =============================================End of
-  // setTravellersToTable()===============================================
-
-  // ======================================================freeTicket()=======================================================
-  /**
-   * The method sets freeTicketLabel for a given city, applying polymorphism.
-   *
-   * @param travellers the travellers who exist in the system.
-   * @param name the city name
-   * @param country the city's country
-   * @param APP_ID our OpenWeatherMap API id.
-   * @throws java.io.IOException
-   * @throws com.bellias.exception.WikipediaNoArticleException
-   */
-  // ==========================================================================================================================
-  public static void freeTicket(
-      ArrayList<Traveller> travellers, String name, String country, final String APP_ID)
-      throws IOException, WikipediaNoArticleException {
-
-    City city = new City();
-    city.setCityName(name);
-    city.setCityCountry(country);
-    city.configureCity(APP_ID);
-
-    Traveller qualifiedCustomer = Traveller.findQualifiedCustomer(travellers, city);
-
-    // Handle NullPointerException...
-    try {
-      freeTicketLabel.setText(
-          "City "
-              + city.getCityName()
-              + ", "
-              + city.getCityCountry()
-              + " gives free ticket in User "
-              + qualifiedCustomer.getCustomerID()
-              + ": "
-              + qualifiedCustomer.getName());
-    } catch (NullPointerException e) {
-      freeTicketLabel.setText("There are no travellers to the system!");
+    public static void setJsp2(JScrollPane jsp2) {
+        ResultsFrame.jsp2 = jsp2;
     }
 
-    freeTicketLabel.setVisible(true);
-    resultsDialog.add(freeTicketLabel);
-  }
-  // ==================================================End of
-  // freeTicket()=====================================================
+    /* ---------------- MouseListener Methods ---------------- */
 
-} // =====================================================End of Class ResultsFrame
-  // =================================================
+    /**
+     * Handles mouse click events and shows all travellers and the free ticket winner.
+     */
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        JFrame f = new JFrame();
+        resultsDialog = new JDialog(f, "Results", true);
+        resultsDialog.setLayout(new FlowLayout());
+
+        // Set ages for all travellers
+        Traveller.setAgesForAll(travellers);
+
+        // Display sorted travellers without duplicates
+        ArrayList<Traveller> sortedList = new ArrayList<>();
+        travellersAfterSorting(travellers, sortedList);
+        setTravellersToTable(sortedList);
+
+        // Display free ticket
+        freeTicketLabel = new JLabel();
+        freeTicketLabel.setBounds(10, 50, 400, 100);
+
+        freeTicket(travellers, "Athens", "GR", APP_ID);
+
+        JButton exitButton = new JButton("Exit");
+        exitButton.setBounds(200, 520, 60, 40);
+        resultsDialog.add(exitButton);
+        exitButton.addActionListener(new CloseListenerClass());
+
+        resultsDialog.setSize(600, 600);
+        resultsDialog.setVisible(true);
+        resultsDialog.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
+    /* ---------------- Utility Methods ---------------- */
+
+    /**
+     * Sorts travellers by age without duplicates.
+     *
+     * @param travellers input list of travellers
+     * @param sortedList list to populate with sorted travellers
+     */
+    public static void travellersAfterSorting(ArrayList<Traveller> travellers, ArrayList<Traveller> sortedList) {
+        Collections.sort(travellers);
+        for (Traveller traveller : travellers) {
+            if (!sortedList.contains(traveller)) {
+                sortedList.add(traveller);
+            }
+        }
+    }
+
+    /**
+     * Populates a JTable with travellers.
+     *
+     * @param travellers list of travellers to display
+     */
+    public static void setTravellersToTable(ArrayList<Traveller> travellers) {
+        JTable travellersTable;
+        String[] columnNames = {"Full name", "Age"};
+        Object[][] data = new Object[travellers.size()][2];
+
+        int i = 0;
+        for (Traveller t : travellers) {
+            data[i][0] = t.getName();
+            data[i][1] = t.getAge();
+            i++;
+        }
+
+        DefaultTableModel dtm = new DefaultTableModel(data, columnNames);
+        travellersTable = new JTable(dtm);
+
+        jsp2 = new JScrollPane();
+        jsp2.getViewport().add(travellersTable);
+        jsp2.setBounds(10, 10, 400, 10 * travellers.size());
+        jsp2.setVisible(true);
+        resultsDialog.add(jsp2);
+    }
+
+    /**
+     * Determines and displays the free ticket winner for a given city.
+     *
+     * @param travellers list of travellers
+     * @param name       city name
+     * @param country    city country
+     * @param APP_ID     OpenWeatherMap API ID
+     */
+    public static void freeTicket(ArrayList<Traveller> travellers, String name, String country, final String APP_ID) {
+
+        City city = new City();
+        city.setCityName(name);
+        city.setCityCountry(country);
+        city.configureCity(APP_ID);
+
+        Traveller qualifiedCustomer = Traveller.findQualifiedCustomer(travellers, city);
+
+        if (qualifiedCustomer != null) {
+            freeTicketLabel.setText(
+                    "City " + city.getCityName() + ", " + city.getCityCountry() +
+                            " gives free ticket to User " + qualifiedCustomer.getCustomerID() +
+                            ": " + qualifiedCustomer.getName());
+        } else {
+            freeTicketLabel.setText("There are no travellers in the system!");
+        }
+
+        freeTicketLabel.setVisible(true);
+        resultsDialog.add(freeTicketLabel);
+    }
+}

@@ -4,96 +4,80 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
- * The Construction of a class that clears all the input areas according to event. Implements
- * MouseListener Interface.
+ * A {@link MouseListener} implementation that clears all input areas in the GUI
+ * when the user clicks a specific component (e.g. a "Clear" button).
  *
- * @author Panagiotis Bellias
+ * <p>This listener resets all form fields in the {@link GUI} class to their default
+ * values and hides suggestion or error labels.</p>
+ *
+ * @author
+ *     Panagiotis Bellias
  */
 public class ClearAreas implements MouseListener {
 
-  // =======================================================mouseClicked()=====================================================
-  /**
-   * The method is implemented so as to catch mouse-clicked event and executes commands to clear all
-   * of the input areas.
-   *
-   * @param e the event which gets caught when happens.
-   */
-  // ==========================================================================================================================
-  @Override
-  public void mouseClicked(MouseEvent e) {
-    GUI.setKind(0);
-    GUI.setNameText("");
-    GUI.setDayBox("1");
-    GUI.setMonthBox("1");
-    GUI.setYearBox("2010");
-    GUI.setbCityText("");
-    GUI.setCitiesText("");
-    GUI.setCriteriaText("");
-    GUI.setWeatherText("");
-    GUI.getSuggestedCityLabel().setVisible(false);
-    GUI.getSuggestedCity().setVisible(false);
-    GUI.setSuggestedCityText("");
-    GUI.getErrorLabel().setVisible(false);
-    System.out.println("Areas cleared.");
-  }
+    /**
+     * Handles the mouse click event.
+     *
+     * <p>When triggered, this method clears all input fields, resets combo boxes,
+     * hides labels, and logs the action to the console.</p>
+     *
+     * @param e the mouse click event
+     */
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        GUI.setKind(0);
+        GUI.setNameText("");
+        GUI.setDayBox("1");
+        GUI.setMonthBox("1");
+        GUI.setYearBox("2010");
+        GUI.setBaseCityText("");
+        GUI.setCitiesText("");
+        GUI.setCriteriaText("");
+        GUI.setWeatherText("");
+        GUI.getSuggestedCityLabel().setVisible(false);
+        GUI.getSuggestedCity().setVisible(false);
+        GUI.setSuggestedCityText("");
+        GUI.getErrorLabel().setVisible(false);
+        System.out.println("Areas cleared.");
+    }
 
-  // ====================================================End of
-  // mouseClicked()=================================================
+    /**
+     * Invoked when a mouse button has been pressed on a component.
+     *
+     * @param e the mouse event
+     */
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // No action needed
+    }
 
-  // =======================================================mousePressed()=====================================================
-  /**
-   * The method is implemented so as to catch mouse-pressed event and executes many commands.
-   * Auto-generated method stub.
-   *
-   * @param e the event which gets caught when happens.
-   */
-  // ==========================================================================================================================
-  @Override
-  public void mousePressed(MouseEvent e) {}
+    /**
+     * Invoked when a mouse button has been released on a component.
+     *
+     * @param e the mouse event
+     */
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // No action needed
+    }
 
-  // ====================================================End of
-  // mousePressed()=================================================
+    /**
+     * Invoked when the mouse enters a component.
+     *
+     * @param e the mouse event
+     */
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // No action needed
+    }
 
-  // =======================================================mouseReleased()====================================================
-  /**
-   * The method is implemented so as to catch mouse-released event and executes many commands.
-   * Auto-generated method stub.
-   *
-   * @param e the event which gets caught when happens.
-   */
-  // ==========================================================================================================================
-  @Override
-  public void mouseReleased(MouseEvent e) {}
-
-  // ====================================================End of
-  // mouseReleased()================================================
-
-  // =======================================================mouseEntered()=====================================================
-  /**
-   * The method is implemented so as to catch mouse-entered event and executes many commands.
-   * Auto-generated method stub.
-   *
-   * @param e the event which gets caught when happens.
-   */
-  // ==========================================================================================================================
-  @Override
-  public void mouseEntered(MouseEvent e) {}
-
-  // ====================================================End of
-  // mouseEntered()=================================================
-
-  // =======================================================mouseExited()======================================================
-  /**
-   * The method is implemented so as to catch mouse-exited event and executes many commands.
-   * Auto-generated method stub.
-   *
-   * @param e the event which gets caught when happens.
-   */
-  // ==========================================================================================================================
-  @Override
-  public void mouseExited(MouseEvent e) {}
-  // ====================================================End of
-  // mouseExited()==================================================
-
-} // =====================================================End of Class ClearAreas
-  // =================================================
+    /**
+     * Invoked when the mouse exits a component.
+     *
+     * @param e the mouse event
+     */
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // No action needed
+    }
+}

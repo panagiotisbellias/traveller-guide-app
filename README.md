@@ -125,7 +125,7 @@ We use GitHub Actions for automation. These are the key workflows:
 #### 🔐 Security Scan (Snyk)
 - Requires you to set the repository secret `SNYK_TOKEN`.
 - Scans dependencies for vulnerabilities with `snyk test --all-projects`.
-- By default fails only for **High** or **Critical** issues.
+- By default, fails only for **High** or **Critical** issues.
 - Results are uploaded to the GitHub Security tab (via SARIF).
 
 #### 🧾 Generate SBOM

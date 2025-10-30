@@ -6,97 +6,109 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.util.HashMap;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"id", "main", "description", "icon"})
 
-/**
- * The Construction of a class that is used for retrieving OpenWeatherMap API.
- *
- * @author Panagiotis Bellias, John Violos
- */
 public class Weather {
 
-  @JsonProperty("id")
-  private Integer id;
+    @JsonProperty("id")
+    private Integer id;
 
-  @JsonProperty("main")
-  private String main;
+    @JsonProperty("main")
+    private String main;
 
-  @JsonProperty("description")
-  private String description;
+    @JsonProperty("description")
+    private String description;
 
-  @JsonProperty("icon")
-  private String icon;
+    @JsonProperty("icon")
+    private String icon;
 
-  @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    @JsonIgnore
+    private final Map<String, Object> additionalProperties = new HashMap<>();
 
-  /** No args constructor for use in serialization */
-  public Weather() {}
+    /**
+     * No-args constructor for serialization/deserialization purposes.
+     */
+    public Weather() {}
 
-  /**
-   * @param icon
-   * @param description
-   * @param main
-   * @param id
-   */
-  public Weather(Integer id, String main, String description, String icon) {
-    super();
-    this.id = id;
-    this.main = main;
-    this.description = description;
-    this.icon = icon;
-  }
+    /**
+     * Constructor with all known fields.
+     *
+     * @param id internal API ID for weather
+     * @param main main weather type (e.g., "Clear", "Rain")
+     * @param description detailed description of weather (e.g., "light rain")
+     * @param icon weather icon code corresponding to the condition
+     */
+    public Weather(Integer id, String main, String description, String icon) {
+        super();
+        this.id = id;
+        this.main = main;
+        this.description = description;
+        this.icon = icon;
+    }
 
-  @JsonProperty("id")
-  public Integer getId() {
-    return id;
-  }
+    /** Gets the internal API ID for this weather. */
+    @JsonProperty("id")
+    public Integer getId() {
+        return id;
+    }
 
-  @JsonProperty("id")
-  public void setId(Integer id) {
-    this.id = id;
-  }
+    /** Sets the internal API ID for this weather. */
+    @JsonProperty("id")
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-  @JsonProperty("main")
-  public String getMain() {
-    return main;
-  }
+    /** Gets the main weather type (e.g., "Clear", "Rain"). */
+    @JsonProperty("main")
+    public String getMain() {
+        return main;
+    }
 
-  @JsonProperty("main")
-  public void setMain(String main) {
-    this.main = main;
-  }
+    /** Sets the main weather type (e.g., "Clear", "Rain"). */
+    @JsonProperty("main")
+    public void setMain(String main) {
+        this.main = main;
+    }
 
-  @JsonProperty("description")
-  public String getDescription() {
-    return description;
-  }
+    /** Gets the detailed description of the weather (e.g., "light rain"). */
+    @JsonProperty("description")
+    public String getDescription() {
+        return description;
+    }
 
-  @JsonProperty("description")
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    /** Sets the detailed description of the weather (e.g., "light rain"). */
+    @JsonProperty("description")
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-  @JsonProperty("icon")
-  public String getIcon() {
-    return icon;
-  }
+    /** Gets the weather icon code corresponding to this condition. */
+    @JsonProperty("icon")
+    public String getIcon() {
+        return icon;
+    }
 
-  @JsonProperty("icon")
-  public void setIcon(String icon) {
-    this.icon = icon;
-  }
+    /** Sets the weather icon code corresponding to this condition. */
+    @JsonProperty("icon")
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
-  @JsonAnyGetter
-  public Map<String, Object> getAdditionalProperties() {
-    return this.additionalProperties;
-  }
+    /** Returns additional unknown properties not explicitly defined in this class. */
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
 
-  @JsonAnySetter
-  public void setAdditionalProperty(String name, Object value) {
-    this.additionalProperties.put(name, value);
-  }
+    /** Adds an unknown property during deserialization. */
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
+
 }

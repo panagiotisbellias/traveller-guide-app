@@ -6,78 +6,62 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * The Construction of a class that implements collaborative filtering.
+ * Represents the collaborative filtering recommendation logic.
+ * Suggests cities based on similarity between travellers' preferences.
  *
  * @author Panagiotis Bellias
  */
 public class CollaborativeFiltering {
 
-  // ===========================================================collaborativeFilteringMethod()=========================================================
-  /**
-   * The method calculates the suggested city according to collaborative filtering.
-   *
-   * @param collectionTravellers all the travellers existing in the system.
-   * @param candidateTraveller the traveller we want to suggest to him.
-   * @return a city object which is the finally suggested city.
-   */
-  // ==================================================================================================================================================
-  public static List<RecommendedCity> getRecommendations(
-      ArrayList<Traveller> collectionTravellers, Traveller candidateTraveller) {
+    /**
+     * Generates recommended cities for a traveller using collaborative filtering.
+     *
+     * @param collectionTravellers all travellers in the system.
+     * @param candidateTraveller   the traveller to recommend cities for.
+     * @return a list of recommended cities sorted by rank (highest first).
+     */
+    public static List<RecommendedCity> getRecommendations(
+            ArrayList<Traveller> collectionTravellers, Traveller candidateTraveller) {
 
-    if (candidateTraveller.getVisit().isEmpty()) {
-      return new ArrayList<>(); // no history → no recommendations
+        if (candidateTraveller.getVisit().isEmpty()) {
+            return new ArrayList<>(); // No history → no recommendations
+        }
+
+        ArrayList<String> candidateTravellerCriteria = candidateTraveller.getTravellerData();
+        ArrayList<String> candidateVisited = candidateTraveller.getVisit();
+
+        // Build a ranked list of city recommendations based on traveller similarity
+        return collectionTravellers.stream()
+                .filter(t -> !t.equals(candidateTraveller)) // Exclude the candidate traveller
+                .flatMap(t ->
+                        t.getVisit().stream()
+                                .filter(city -> !candidateVisited.contains(city)) // Exclude already visited cities
+                                .map(city ->
+                                        new RecommendedCity(
+                                                city,
+                                                innerDot(t.getTravellerData(), candidateTravellerCriteria))))
+                .filter(rc -> rc.getRank() > 0)
+                .sorted(Comparator.comparingDouble(RecommendedCity::getRank).reversed()) // Highest rank first
+                .collect(Collectors.toList());
     }
 
-    ArrayList<String> candidateTravellerCriteria = candidateTraveller.getTravellerData();
-    ArrayList<String> candidateVisited = candidateTraveller.getVisit();
+    /**
+     * Calculates the similarity score between two travellers' criteria.
+     *
+     * @param currentTravellerCriteria   the first traveller’s criteria.
+     * @param candidateTravellerCriteria the candidate traveller’s criteria.
+     * @return the number of matching criteria (similarity score).
+     */
+    private static int innerDot(
+            ArrayList<String> currentTravellerCriteria, ArrayList<String> candidateTravellerCriteria) {
 
-    // Map each traveller to RecommendedCity (city + rank)
-    List<RecommendedCity> recommendations =
-        collectionTravellers.stream()
-            .filter(t -> !t.equals(candidateTraveller)) // skip candidate
-            .flatMap(
-                t ->
-                    t.getVisit().stream()
-                        .filter(city -> !candidateVisited.contains(city)) // exclude already visited
-                        .map(
-                            city ->
-                                new RecommendedCity(
-                                    city,
-                                    innerDot(t.getTravellerData(), candidateTravellerCriteria))))
-            .filter(rc -> rc.getRank() > 0)
-            .sorted(
-                Comparator.comparingDouble(RecommendedCity::getRank)
-                    .reversed()) // highest rank first
-            .collect(Collectors.toList());
-
-    return recommendations;
-  }
-
-  // =======================================================End of
-  // collaborativeFilteringMethod()======================================================
-
-  // ==================================================================innerDot()======================================================================
-  /**
-   * The method calculates the rank for every traveller for a specific city.
-   *
-   * @param currentTravellerCriterias first traveller's criteria to compare.
-   * @param candidateTravellersCriteria current traveller's criteria to compare.
-   * @return the city rank.
-   */
-  // ==================================================================================================================================================
-  private static int innerDot(
-      ArrayList<String> currentTravellerCriterias, ArrayList<String> candidateTravellersCriteria) {
-
-    int sum = 0;
-
-    for (String criteria : candidateTravellersCriteria) {
-      if (currentTravellerCriterias.contains(criteria)) sum++;
+        int sum = 0;
+        for (String criteria : candidateTravellerCriteria) {
+            if (currentTravellerCriteria.contains(criteria)) {
+                sum++;
+            }
+        }
+        return sum;
     }
 
-    return sum;
-  }
-  // =================================================================End of
-  // innerDot()================================================================
-
-} // ===========================================================End of Class CollaborativeFiltering
-  // =========================================================
+}

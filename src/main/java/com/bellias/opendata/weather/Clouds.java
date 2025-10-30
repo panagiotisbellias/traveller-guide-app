@@ -6,52 +6,70 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.util.HashMap;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"all"})
 
-/**
- * The Construction of a class that represents clouds.
- *
- * @author Panagiotis Bellias, John Violos
- */
 public class Clouds {
 
-  @JsonProperty("all")
-  private Integer all;
+    @JsonProperty("all")
+    private Integer all;
 
-  @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    @JsonIgnore
+    private final Map<String, Object> additionalProperties = new HashMap<>();
 
-  /** No args constructor for use in serialization */
-  public Clouds() {}
+    /**
+     * Constructor with all known fields.
+     *
+     * @param all the cloudiness percentage (0-100)
+     */
+    public Clouds(Integer all) {
+        super();
+        this.all = all;
+    }
 
-  /**
-   * @param all
-   */
-  public Clouds(Integer all) {
-    super();
-    this.all = all;
-  }
+    /**
+     * Gets the cloudiness percentage.
+     *
+     * @return the cloudiness percentage (0-100)
+     */
+    @JsonProperty("all")
+    public Integer getAll() {
+        return all;
+    }
 
-  @JsonProperty("all")
-  public Integer getAll() {
-    return all;
-  }
+    /**
+     * Sets the cloudiness percentage.
+     *
+     * @param all the cloudiness percentage (0-100)
+     */
+    @JsonProperty("all")
+    public void setAll(Integer all) {
+        this.all = all;
+    }
 
-  @JsonProperty("all")
-  public void setAll(Integer all) {
-    this.all = all;
-  }
+    /**
+     * Returns a map of any additional properties not explicitly defined in this class.
+     *
+     * @return a map of additional properties
+     */
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
 
-  @JsonAnyGetter
-  public Map<String, Object> getAdditionalProperties() {
-    return this.additionalProperties;
-  }
+    /**
+     * Adds a property to this object. Used during deserialization for unknown fields.
+     *
+     * @param name  the property name
+     * @param value the property value
+     */
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
 
-  @JsonAnySetter
-  public void setAdditionalProperty(String name, Object value) {
-    this.additionalProperties.put(name, value);
-  }
 }

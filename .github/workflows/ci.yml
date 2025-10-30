@@ -2,7 +2,7 @@ name: CI - Build & Test
 
 on:
   push:
-    branches: [ main, development, task/introduce-code-style-checks-checkstyle-spotless-6cp55qR5Vgj27C6c ]
+    branches: [ main, development, task/refactor-extract-recommendation-logic-from-swing-ui-6cp55jwp3c437Xgc ]
   pull_request:
     branches: [ main, development ]
 
@@ -26,6 +26,16 @@ jobs:
 
       - name: Build and test
         run: mvn -B verify
+
+      - name: Generate Javadoc
+        run: mvn javadoc:javadoc
+
+      - name: Archive Javadoc
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: javadoc
+          path: target/site/apidocs/
 
       - name: Archive test results
         if: always()

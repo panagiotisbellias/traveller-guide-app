@@ -4,107 +4,90 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * The Construction of a class that represents a business traveller. Extends from class Traveller.
+ * Represents a business traveller, extending the base {@link Traveller} class.
  *
- * @author Panagiotis Bellias
+ * <p>Provides functionality to calculate similarity between the traveller’s current location and
+ * destination cities.
+ * <p>
+ * author Panagiotis Bellias
  */
 public class Business extends Traveller {
 
-  // =======================================================Business()=========================================================
-  /**
-   * The constructor defines the fields which describe the traveller calling Traveller constructor.
-   *
-   * @param name the name of the traveller.
-   * @param birthDate the birth date of the traveller.
-   * @param currentLat the current lattitude of the traveller.
-   * @param currentLon the current longtitude of the traveller.
-   * @param suggestedCities the cities that traveller wants.
-   * @param travellerData the criteria traveller wants to his finally suggested city.
-   * @param customerID the id of the traveller.
-   */
-  // ==========================================================================================================================
-  public Business(
-      String name,
-      Date birthDate,
-      double currentLat,
-      double currentLon,
-      ArrayList<String> travellerData,
-      ArrayList<String> suggestedCities,
-      int customerID) {
-    super(name, birthDate, currentLat, currentLon, travellerData, suggestedCities, customerID);
-  }
-
-  // ======================================================End of
-  // Business()===================================================
-
-  // ========================================================Similarity()======================================================
-  /**
-   * The method calculates similarity between city's and traveller's distance.
-   *
-   * @param destinationCity the city object we want to find its similarity to the traveller.
-   * @return a double number that represents percentage of similarity between city and traveller.
-   */
-  // ==========================================================================================================================
-  @Override
-  public double Similarity(City destinationCity) {
-
-    final int EARTHRADIUS = 6371;
-    double dist;
-
-    dist =
-        distanceCalculation(
-            getCurrentLat(),
-            getCurrentLon(),
-            destinationCity.getLat(),
-            destinationCity.getLon(),
-            "K");
-
-    return dist / EARTHRADIUS;
-  }
-
-  // ====================================================End of
-  // Similarity()===================================================
-
-  // ===================================================distanceCalculation()==================================================
-  /**
-   * The method calculates distance between city and traveller.
-   *
-   * @param lat1 the current lattitude of traveller.
-   * @param lon1 the current longtitude of traveller.
-   * @param lat2 the lattitude of city.
-   * @param lon2 the longtitude of city.
-   * @param unit the unit in which the distance will be calculated.
-   * @return a double number that represents the distance between city's and traveller's
-   *     coordinators.
-   */
-  // ==========================================================================================================================
-  public static double distanceCalculation(
-      double lat1, double lon1, double lat2, double lon2, String unit) {
-    if ((lat1 == lat2) && (lon1 == lon2)) {
-      return 0.0;
-    } else {
-      double theta = lon1 - lon2;
-      double dist =
-          Math.sin(Math.toRadians(lat1)) * Math.sin(Math.toRadians(lat2))
-              + Math.cos(Math.toRadians(lat1))
-                  * Math.cos(Math.toRadians(lat2))
-                  * Math.cos(Math.toRadians(theta));
-
-      dist = Math.acos(dist);
-      dist = Math.toDegrees(dist);
-      dist = dist * 60 * 1.1515;
-
-      if (unit.equals("K")) {
-        dist = dist * 1.609344;
-      } else if (unit.equals("N")) {
-        dist = dist * 0.8684;
-      }
-
-      return (dist);
+    /**
+     * Initializes a new Business traveller with the given parameters.
+     *
+     * @param name the traveller’s name
+     * @param birthDate the traveller’s birthdate
+     * @param currentLat the current latitude of the traveller
+     * @param currentLon the current longitude of the traveller
+     * @param travellerData the traveller’s preference criteria
+     * @param suggestedCities the cities the traveller is interested in
+     * @param customerID the traveller’s unique ID
+     */
+    public Business(
+            String name,
+            Date birthDate,
+            double currentLat,
+            double currentLon,
+            ArrayList<String> travellerData,
+            ArrayList<String> suggestedCities,
+            int customerID) {
+        super(name, birthDate, currentLat, currentLon, travellerData, suggestedCities, customerID);
     }
-  }
-  // ================================================End of
-  // distanceCalculation()==============================================
 
-} // ======================================================End of Class
-  // Business======================================================
+    /**
+     * Calculates the similarity between the traveller and a destination city, based on distance.
+     *
+     * @param destinationCity the city to compare with
+     * @return a value representing the distance ratio (similarity) between the traveller and the city
+     */
+    @Override
+    public double Similarity(City destinationCity) {
+        final int EARTH_RADIUS = 6371;
+        double dist =
+                distanceCalculation(
+                        getCurrentLat(),
+                        getCurrentLon(),
+                        destinationCity.getLat(),
+                        destinationCity.getLon(),
+                        "K");
+        return dist / EARTH_RADIUS;
+    }
+
+    /**
+     * Calculates the distance between two geographic points using latitude and longitude.
+     *
+     * @param lat1 the traveller’s latitude
+     * @param lon1 the traveller’s longitude
+     * @param lat2 the city’s latitude
+     * @param lon2 the city’s longitude
+     * @param unit the unit of measurement ("K" for kilometers, "N" for nautical miles)
+     * @return the calculated distance between the two coordinates
+     */
+    public static double distanceCalculation(
+            double lat1, double lon1, double lat2, double lon2, String unit) {
+
+        if (lat1 == lat2 && lon1 == lon2) {
+            return 0.0;
+        }
+
+        double theta = lon1 - lon2;
+        double dist =
+                Math.sin(Math.toRadians(lat1)) * Math.sin(Math.toRadians(lat2))
+                        + Math.cos(Math.toRadians(lat1))
+                        * Math.cos(Math.toRadians(lat2))
+                        * Math.cos(Math.toRadians(theta));
+
+        dist = Math.acos(dist);
+        dist = Math.toDegrees(dist);
+        dist = dist * 60 * 1.1515;
+
+        if (unit.equals("K")) {
+            dist *= 1.609344;
+        } else if (unit.equals("N")) {
+            dist *= 0.8684;
+        }
+
+        return dist;
+    }
+}

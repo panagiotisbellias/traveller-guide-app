@@ -6,67 +6,75 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.util.HashMap;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"speed", "deg"})
 
-/**
- * The Construction of a class that is used for retrieving OpenWeatherMap API.
- *
- * @author Panagiotis Bellias, John Violos
- */
 public class Wind {
 
-  @JsonProperty("speed")
-  private Double speed;
+    @JsonProperty("speed")
+    private Double speed;
 
-  @JsonProperty("deg")
-  private Integer deg;
+    @JsonProperty("deg")
+    private Integer deg;
 
-  @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    @JsonIgnore
+    private final Map<String, Object> additionalProperties = new HashMap<>();
 
-  /** No args constructor for use in serialization */
-  public Wind() {}
+    /**
+     * No-args constructor for serialization/deserialization purposes.
+     */
+    public Wind() {}
 
-  /**
-   * @param deg
-   * @param speed
-   */
-  public Wind(Double speed, Integer deg) {
-    super();
-    this.speed = speed;
-    this.deg = deg;
-  }
+    /**
+     * Constructor with all known fields.
+     *
+     * @param speed wind speed in meters/second
+     * @param deg wind direction in degrees (meteorological)
+     */
+    public Wind(Double speed, Integer deg) {
+        super();
+        this.speed = speed;
+        this.deg = deg;
+    }
 
-  @JsonProperty("speed")
-  public Double getSpeed() {
-    return speed;
-  }
+    /** Gets the wind speed in meters/second. */
+    @JsonProperty("speed")
+    public Double getSpeed() {
+        return speed;
+    }
 
-  @JsonProperty("speed")
-  public void setSpeed(Double speed) {
-    this.speed = speed;
-  }
+    /** Sets the wind speed in meters/second. */
+    @JsonProperty("speed")
+    public void setSpeed(Double speed) {
+        this.speed = speed;
+    }
 
-  @JsonProperty("deg")
-  public Integer getDeg() {
-    return deg;
-  }
+    /** Gets the wind direction in degrees (meteorological). */
+    @JsonProperty("deg")
+    public Integer getDeg() {
+        return deg;
+    }
 
-  @JsonProperty("deg")
-  public void setDeg(Integer deg) {
-    this.deg = deg;
-  }
+    /** Sets the wind direction in degrees (meteorological). */
+    @JsonProperty("deg")
+    public void setDeg(Integer deg) {
+        this.deg = deg;
+    }
 
-  @JsonAnyGetter
-  public Map<String, Object> getAdditionalProperties() {
-    return this.additionalProperties;
-  }
+    /** Returns additional unknown properties not explicitly defined in this class. */
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
 
-  @JsonAnySetter
-  public void setAdditionalProperty(String name, Object value) {
-    this.additionalProperties.put(name, value);
-  }
+    /** Adds an unknown property during deserialization. */
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
+
 }
