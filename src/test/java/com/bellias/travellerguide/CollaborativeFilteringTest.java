@@ -1,5 +1,6 @@
 package com.bellias.travellerguide;
 
+import com.bellias.exception.RecommendationException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class CollaborativeFilteringTest {
 
   @Test
-  void shouldGenerateRecommendationsForTraveller() {
+  void shouldGenerateRecommendationsForTraveller() throws RecommendationException {
     ArrayList<String> travellerData = new ArrayList<>(List.of("Culture", "Museums"));
     ArrayList<String> suggestedCities = new ArrayList<>(List.of("Paris", "Rome"));
     Traveller candidate =
@@ -36,14 +37,15 @@ class CollaborativeFilteringTest {
     allTravellers.add(otherTraveller); // add other traveller
     allTravellers.add(candidate); // candidate too (optional)
 
-    List<RecommendedCity> recommendations = CollaborativeFiltering.getRecommendations(allTravellers, candidate);
+    CollaborativeFiltering collaborativeFiltering = new CollaborativeFiltering();
+    List<RecommendedCity> recommendations = collaborativeFiltering.getRecommendations(allTravellers, candidate);
 
     assertNotNull(recommendations, "Recommendations list should not be null");
     assertFalse(recommendations.isEmpty(), "Recommendations should not be empty");
   }
 
   @Test
-  void shouldReturnEmptyWhenTravellerHasNoHistory() {
+  void shouldReturnEmptyWhenTravellerHasNoHistory() throws RecommendationException {
     ArrayList<String> travellerData = new ArrayList<>(List.of("Nature"));
     ArrayList<String> suggestedCities = new ArrayList<>(); // no history
     Traveller traveller =
@@ -58,7 +60,8 @@ class CollaborativeFilteringTest {
 
     ArrayList<Traveller> allTravellers = new ArrayList<>();
     allTravellers.add(traveller);
-    List<RecommendedCity> recommendations = CollaborativeFiltering.getRecommendations(allTravellers, traveller);
+    CollaborativeFiltering collaborativeFiltering = new CollaborativeFiltering();
+    List<RecommendedCity> recommendations = collaborativeFiltering.getRecommendations(allTravellers, traveller);
 
     assertTrue(
         recommendations.isEmpty(), "Traveller with no history should yield no recommendations");
