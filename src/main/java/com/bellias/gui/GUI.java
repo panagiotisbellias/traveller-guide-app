@@ -3,7 +3,10 @@ package com.bellias.gui;
 import com.bellias.config.AppProperties;
 import com.bellias.storage.DataStoreFactory;
 import com.bellias.travellerguide.City;
+import com.bellias.travellerguide.CollaborativeFiltering;
 import com.bellias.travellerguide.Traveller;
+import com.bellias.travellerguide.service.CollaborativeFilteringRecommendationService;
+import com.bellias.travellerguide.service.RecommendationService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -142,8 +145,10 @@ public class GUI {
         bt.addActionListener((ActionEvent e1) -> setKind(2));
         tour.addActionListener((ActionEvent e1) -> setKind(3));
 
+        CollaborativeFiltering engine = new CollaborativeFiltering();
+        RecommendationService recommendationService = new CollaborativeFilteringRecommendationService(engine);
         tb1.addMouseListener(
-                new DataProcessing(APP_ID, travellers, cities, cityObjects, id, manyTravellers));
+                new DataProcessing(APP_ID, travellers, cities, cityObjects, id, manyTravellers, recommendationService));
         tb2.addMouseListener(new ClearAreas());
         tb3.addMouseListener(new ShowHelp());
         yes.addMouseListener(new NewUserFrame());

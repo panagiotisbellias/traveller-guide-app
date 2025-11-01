@@ -1,6 +1,9 @@
 package com.bellias.travellerguide;
 
+import com.bellias.exception.RecommendationException;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,29 +16,22 @@ import java.util.stream.Collectors;
  */
 public class CollaborativeFiltering {
 
-    /**
-     * Generates recommended cities for a traveller using collaborative filtering.
-     *
-     * @param collectionTravellers all travellers in the system.
-     * @param candidateTraveller   the traveller to recommend cities for.
-     * @return a list of recommended cities sorted by rank (highest first).
-     */
-    public static List<RecommendedCity> getRecommendations(
-            ArrayList<Traveller> collectionTravellers, Traveller candidateTraveller) {
+    public List<RecommendedCity> getRecommendations(List<Traveller> travellers, Traveller candidateTraveller) throws RecommendationException {
 
+        // No history → no recommendations
         if (candidateTraveller.getVisit().isEmpty()) {
-            return new ArrayList<>(); // No history → no recommendations
+            return Collections.emptyList();
         }
 
-        ArrayList<String> candidateTravellerCriteria = candidateTraveller.getTravellerData();
-        ArrayList<String> candidateVisited = candidateTraveller.getVisit();
+        List<String> candidateTravellerCriteria = candidateTraveller.getTravellerData();
+        List<String> candidateVisited = candidateTraveller.getVisit();
 
-        // Build a ranked list of city recommendations based on traveller similarity
-        return collectionTravellers.stream()
-                .filter(t -> !t.equals(candidateTraveller)) // Exclude the candidate traveller
+        // Build ranked recommendations based on similarity
+        return travellers.stream()
+                .filter(t -> !t.equals(candidateTraveller)) // Exclude self
                 .flatMap(t ->
                         t.getVisit().stream()
-                                .filter(city -> !candidateVisited.contains(city)) // Exclude already visited cities
+                                .filter(city -> !candidateVisited.contains(city)) // Exclude already visited
                                 .map(city ->
                                         new RecommendedCity(
                                                 city,
@@ -53,7 +49,7 @@ public class CollaborativeFiltering {
      * @return the number of matching criteria (similarity score).
      */
     private static int innerDot(
-            ArrayList<String> currentTravellerCriteria, ArrayList<String> candidateTravellerCriteria) {
+            ArrayList<String> currentTravellerCriteria, List<String> candidateTravellerCriteria) {
 
         int sum = 0;
         for (String criteria : candidateTravellerCriteria) {

@@ -1,15 +1,16 @@
 package com.bellias.gui;
 
 import com.bellias.config.AppProperties;
+import com.bellias.exception.RecommendationException;
 import com.bellias.opendata.weather.OpenWeatherMap;
 import com.bellias.rest.WeatherThread;
 import com.bellias.storage.DataStoreFactory;
 import com.bellias.travellerguide.Business;
 import com.bellias.travellerguide.City;
-import com.bellias.travellerguide.CollaborativeFiltering;
 import com.bellias.travellerguide.RecommendedCity;
 import com.bellias.travellerguide.Tourist;
 import com.bellias.travellerguide.Traveller;
+import com.bellias.travellerguide.service.RecommendationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,6 +44,7 @@ public class DataProcessing implements MouseListener {
     private final int id;
     private final boolean manyTravellers;
     private final ArrayList<Boolean> checkFlags = new ArrayList<>();
+    private final RecommendationService recommendationService;
 
     /**
      * Constructs a new DataProcessing listener that initializes the necessary context for
@@ -61,7 +63,9 @@ public class DataProcessing implements MouseListener {
             ArrayList<String> cities,
             ArrayList<City> cityObjects,
             int id,
-            boolean manyTravellers) {
+            boolean manyTravellers,
+            RecommendationService recommendationService
+    ) {
 
         this.APP_ID = APP_ID;
         this.travellers = travellers;
@@ -69,6 +73,7 @@ public class DataProcessing implements MouseListener {
         this.cityObjects = cityObjects;
         this.id = id;
         this.manyTravellers = manyTravellers;
+        this.recommendationService = recommendationService;
     }
 
     /**
@@ -125,18 +130,30 @@ public class DataProcessing implements MouseListener {
                 Traveller traveller = new Traveller(
                         name, birthDate, lat, lon, criteriaSuggestionsOfCustomer, cities, id);
                 travellers.add(traveller);
-                suggestedCity = getSuggestedCity(traveller, weather);
+                try {
+                    suggestedCity = getSuggestedCity(traveller, weather);
+                } catch (RecommendationException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
             case 2 -> {
                 Business traveller = new Business(name, birthDate, lat, lon, new ArrayList<>(), cities, id);
                 travellers.add(traveller);
-                suggestedCity = getSuggestedCity(traveller, weather);
+                try {
+                    suggestedCity = getSuggestedCity(traveller, weather);
+                } catch (RecommendationException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
             case 3 -> {
                 Tourist traveller = new Tourist(
                         name, birthDate, lat, lon, criteriaSuggestionsOfCustomer, cities, id);
                 travellers.add(traveller);
-                suggestedCity = getSuggestedCity(traveller, weather);
+                try {
+                    suggestedCity = getSuggestedCity(traveller, weather);
+                } catch (RecommendationException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
             default -> System.out.println("Unknown traveller type.");
         }
@@ -158,13 +175,12 @@ public class DataProcessing implements MouseListener {
         GUI.getNo().setVisible(true);
     }
 
-    private City getSuggestedCity(Traveller traveller, String weather) {
+    private City getSuggestedCity(Traveller traveller, String weather) throws RecommendationException {
         if (!manyTravellers) {
             return traveller.CompareCities(weather, cityObjects);
         }
 
-        List<RecommendedCity> recommendations =
-                CollaborativeFiltering.getRecommendations(travellers, traveller);
+        List<RecommendedCity> recommendations = recommendationService.recommend(travellers, traveller);
         if (!recommendations.isEmpty()) {
             String[] cityParts = recommendations.getFirst().getCity().split(", ");
             return new City(cityParts[0], cityParts[1]);
