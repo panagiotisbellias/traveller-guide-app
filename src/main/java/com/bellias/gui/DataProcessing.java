@@ -180,12 +180,13 @@ public class DataProcessing implements MouseListener {
             return traveller.CompareCities(weather, cityObjects);
         }
 
-        List<RecommendedCity> recommendations = recommendationService.recommend(travellers, traveller);
-        if (!recommendations.isEmpty()) {
-            String[] cityParts = recommendations.getFirst().getCity().split(", ");
-            return new City(cityParts[0], cityParts[1]);
-        }
-        return null;
+        return recommendationService.recommend(travellers, traveller).stream()
+                .findFirst()
+                .map(rc -> {
+                    String[] cityParts = rc.getCity().split(",\\s*"); // split on comma + optional spaces
+                    return new City(cityParts[0], (cityParts.length >= 2) ? cityParts[1] : "");
+                })
+                .orElse(null);
     }
 
     @Override public void mousePressed(MouseEvent e) { /* No action needed */ }

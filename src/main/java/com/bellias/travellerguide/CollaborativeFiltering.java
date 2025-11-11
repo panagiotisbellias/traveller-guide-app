@@ -2,7 +2,6 @@ package com.bellias.travellerguide;
 
 import com.bellias.exception.RecommendationException;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -35,29 +34,13 @@ public class CollaborativeFiltering {
                                 .map(city ->
                                         new RecommendedCity(
                                                 city,
-                                                innerDot(t.getTravellerData(), candidateTravellerCriteria))))
+                                                Math.toIntExact(t.getTravellerData().stream().filter(candidateTravellerCriteria::contains).count())
+                                        )
+                                )
+                )
                 .filter(rc -> rc.getRank() > 0)
                 .sorted(Comparator.comparingDouble(RecommendedCity::getRank).reversed()) // Highest rank first
                 .collect(Collectors.toList());
-    }
-
-    /**
-     * Calculates the similarity score between two travellers' criteria.
-     *
-     * @param currentTravellerCriteria   the first traveller’s criteria.
-     * @param candidateTravellerCriteria the candidate traveller’s criteria.
-     * @return the number of matching criteria (similarity score).
-     */
-    private static int innerDot(
-            ArrayList<String> currentTravellerCriteria, List<String> candidateTravellerCriteria) {
-
-        int sum = 0;
-        for (String criteria : candidateTravellerCriteria) {
-            if (currentTravellerCriteria.contains(criteria)) {
-                sum++;
-            }
-        }
-        return sum;
     }
 
 }
